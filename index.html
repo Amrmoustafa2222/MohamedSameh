@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohamed & Sama — The Royal Wedding Celebration</title>
+  <meta name="description" content="Request the honor of your presence to celebrate the royal wedding of Mohamed Sameh and Sama on Thursday, July 16, 2026 at Citadel Hall.">
+  <meta name="keywords" content="wedding invitation, Mohamed Sameh, Sama, Citadel Hall, July 16 2026, editorial invitation, luxury wedding">
+
+  <!-- AOS Animation CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Editorial Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Romantic Wedding Audio Player -->
+  <audio id="wedding-audio" loop preload="auto">
+    <!-- Place your mp3 file downloaded from the YouTube Short here as wedding_song.mp3 -->
+    <source src="wedding_song.mp3" type="audio/mpeg">
+    <!-- High-quality romantic acoustic/strings melody fallback -->
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/16/audio_c2b8316409.mp3?filename=romantic-wedding-piano-110515.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Delicate Subtle Floating Heart Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Floating Language Switcher & Audio Controller -->
+  <div class="controls-group">
+    <button id="lang-toggle" class="lang-switch-btn" title="Switch Language / تغيير اللغة">
+      <i class="fas fa-globe"></i>
+      <span id="lang-label">العربية</span>
+    </button>
+    
+    <button id="audio-toggle" class="audio-toggle" title="Toggle Romantic Melody">
+      <i class="fas fa-volume-mute"></i>
+    </button>
+  </div>
+
+  <!-- ==========================================================================
+       FLAWLESS ROYAL INVITATION CASE / SLEEVE INTRO REVEAL
+       ========================================================================== -->
+  <div id="cinematic-intro">
+    <div id="royal-case-wrapper" class="royal-case-wrapper" data-aos="zoom-in" data-aos-duration="1200">
+      
+      <!-- Hidden Card Inside the Case -->
+      <div class="case-hidden-card">
+        <div style="font-family: var(--font-editorial); font-size: 4rem; letter-spacing: 4px; color: #141414;">M / S</div>
+        <div style="font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase; color: #C92A42; margin-top: 12px; font-weight: 600;" data-i18n="case_welcome">WELCOME TO OUR WEDDING</div>
+      </div>
+
+      <!-- Top Sleeve Panel -->
+      <div class="case-panel-top">
+        <div class="case-monogram">M / S</div>
+        <div class="case-subtitle" data-i18n="case_subtitle">THE ROYAL WEDDING INVITATION</div>
+      </div>
+
+      <!-- Bottom Sleeve Panel -->
+      <div class="case-panel-bottom">
+        <div class="case-footer-text" data-i18n="case_footer">THURSDAY — JULY 16, 2026 — CITADEL HALL</div>
+      </div>
+
+      <!-- Embossed Royal Wax Seal Emblem -->
+      <button id="btn-open-invite" class="royal-wax-seal" title="Tap to unseal the invitation">
+        <span class="seal-initials">M&S</span>
+        <span class="seal-action" data-i18n="case_unseal">TAP TO OPEN</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN EDITORIAL CARD (SACRED CALLIGRAPHY + ANIMATED MONOGRAM)
+       ========================================================================== -->
+  <main>
+    <section class="hero-section">
+      <div class="editorial-main-card" data-aos="fade-up" data-aos-duration="1400">
+        
+        <!-- Sacred Quranic Calligraphy Display: Bismillah in Black + Verse in Gold -->
+        <div class="sacred-verse-container">
+          <div class="quranic-bismillah">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </div>
+          <div class="quranic-arabic">
+            ﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ﴾
+          </div>
+        </div>
+
+        <div class="hero-script-save" data-i18n="hero_save_date">Save our Date</div>
+        
+        <!-- Animated Layered Giant Monogram Composition -->
+        <div class="hero-monogram-composition">
+          <!-- Huge 15rem Background Initials M / S -->
+          <div class="giant-initials">
+            <span class="initial-m">M</span>
+            <span class="initial-slash">/</span>
+            <span class="initial-s">S</span>
+          </div>
+          <!-- Slim White Box Overlapping Full Names -->
+          <div class="full-names-overlay">
+            <span data-i18n="name_mohamed">MOHAMED</span>
+            <span class="plus-divider">+</span>
+            <span data-i18n="name_sama">SAMA</span>
+          </div>
+        </div>
+
+        <p class="editorial-invitation-text" data-i18n="hero_invitation_text">
+          WITH JOYFUL HEARTS & THE BLESSINGS OF OUR FAMILIES<br>
+          WE REQUEST THE HONOR OF YOUR PRESENCE AT THE WEDDING OF
+        </p>
+
+        <!-- Exact Image 1 Date Grid with Thin Horizontal Rules (16 colored #E84A5F) -->
+        <div class="editorial-date-grid">
+          <div class="date-side">
+            <span class="date-month" data-i18n="date_month">JULY</span>
+            <div class="date-rule"></div>
+            <span class="date-detail" data-i18n="date_day_name">THURSDAY</span>
+          </div>
+          
+          <div class="date-center">
+            16
+          </div>
+          
+          <div class="date-side">
+            <span class="date-month" data-i18n="date_year">2026</span>
+            <div class="date-rule"></div>
+            <span class="date-detail" data-i18n="date_time">7:00 PM</span>
+          </div>
+        </div>
+
+        <div class="venue-editorial-display">
+          <div class="venue-hall-title" data-i18n="venue_hall">CITADEL HALL</div>
+          <div class="venue-hall-sub" data-i18n="venue_ballroom">THE GRAND BALLROOM</div>
+        </div>
+
+        <div class="reception-script" data-i18n="reception">
+          an evening of love, music & joyful celebration to follow
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ARTISTIC EDITORIAL ROMANCE CANVAS ("حب لا ينتهي / حكاية العمر")
+         ========================================================================== -->
+    <section class="artistic-romance-section">
+      <!-- Top Romantic Tagline -->
+      <div class="romance-top-tag" data-aos="fade-down">
+        <span data-i18n="romance_top_tag">Together is a beautiful place to be</span>
+        <span class="tag-symbols">🧿 ♥</span>
+      </div>
+
+      <!-- GRAND SCROLL-MERGING HEART PORTAL (PHOTO + FRAME SPLIT & MERGE ON SCROLL) -->
+      <div class="grand-heart-portal-wrapper">
+        <div class="grand-heart-portal is-split" id="wedding-heart-portal">
+          <!-- Flawless Bézier Curve Clip Path & Rose Red Gradient -->
+          <svg style="position: absolute; width: 0; height: 0; pointer-events: none;">
+            <defs>
+              <clipPath id="royal-heart-clip" clipPathUnits="objectBoundingBox">
+                <path d="M 0.5 0.22 C 0.5 0.1, 0.35 0, 0.2 0.1 C 0.02 0.22, 0.1 0.5, 0.5 0.85 C 0.9 0.5, 0.98 0.22, 0.8 0.1 C 0.65 0, 0.5 0.1, 0.5 0.22 Z"></path>
+              </clipPath>
+              <linearGradient id="royalRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF6B81" />
+                <stop offset="35%" stop-color="#E84A5F" />
+                <stop offset="65%" stop-color="#D12F47" />
+                <stop offset="100%" stop-color="#FF6B81" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- LEFT HALF OF THE HEART & FRAME -->
+          <div class="heart-half left-half">
+            <div class="half-content-wrapper">
+              <img src="sama.jpeg" alt="Mohamed & Sama Left">
+              <div class="heart-inner-vignette"></div>
+              <svg viewBox="0 0 100 100" class="heart-frame-svg">
+                <path d="M 50 22 C 50 10, 35 0, 20 10 C 2 22, 10 50, 50 85 C 90 50, 98 22, 80 10 C 65 0, 50 10, 50 22 Z" fill="none" stroke="url(#royalRedGrad)" stroke-width="2.5" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- RIGHT HALF OF THE HEART & FRAME -->
+          <div class="heart-half right-half">
+            <div class="half-content-wrapper">
+              <img src="sama.jpeg" alt="Mohamed & Sama Right">
+              <div class="heart-inner-vignette"></div>
+              <svg viewBox="0 0 100 100" class="heart-frame-svg">
+                <path d="M 50 22 C 50 10, 35 0, 20 10 C 2 22, 10 50, 50 85 C 90 50, 98 22, 80 10 C 65 0, 50 10, 50 22 Z" fill="none" stroke="url(#royalRedGrad)" stroke-width="2.5" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Romantic Serif Quote -->
+      <blockquote class="romance-editorial-quote" data-aos="fade-up" data-aos-delay="200">
+        "<span data-i18n="romance_quote">I have found the one whom my soul loves. Here is to a lifetime of togetherness.</span>"
+        <span class="quote-symbols">♥ 🔗</span>
+      </blockquote>
+
+      <!-- The Love Journey Arrow & Years -->
+      <div class="journey-arrow-row" data-aos="fade-up" data-aos-delay="400">
+        <!-- Start Year -->
+        <div class="journey-point left-point">
+          <div class="point-label" data-i18n="journey_start_label">It's Start</div>
+          <div class="point-year" data-i18n="journey_start_year">2024</div>
+        </div>
+
+        <!-- Artistic Hand-Drawn Curly Loop Arrow -->
+        <div class="journey-arrow-center">
+          <svg viewBox="0 0 200 80" class="hand-drawn-arrow-svg">
+            <!-- Smooth artistic loop arrow pointing right -->
+            <path d="M 15 50 Q 60 110, 85 45 Q 100 10, 75 40 Q 65 60, 105 60 Q 140 60, 180 40" fill="none" stroke="var(--text-dark)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M 165 28 L 182 40 L 165 54" fill="none" stroke="var(--text-dark)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <!-- Destination Year -->
+        <div class="journey-point right-point">
+          <div class="point-label" data-i18n="journey_moving_label">It's moving</div>
+          <div class="point-year" data-i18n="journey_moving_year">2026</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         NEW SECTION 1: OUR LOVE STORY TIMELINE ("قصة حبنا / محطات السعادة")
+         ========================================================================== -->
+    <section class="timeline-section">
+      <div class="timeline-card" data-aos="fade-up">
+        <h2 class="timeline-title" data-i18n="timeline_title">Our Love Story</h2>
+        <div class="timeline-sub" data-i18n="timeline_sub">THE JOURNEY TO FOREVER</div>
+
+        <div class="timeline-wrapper">
+          <!-- Milestone 1 -->
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date" data-i18n="time_date_1">2024</div>
+              <p class="timeline-desc" data-i18n="time_desc_1">A chance encounter that sparked an undeniable connection and changed our worlds forever.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date" data-i18n="time_date_2">2025</div>
+              <p class="timeline-desc" data-i18n="time_desc_2">Under the starlight, a promise was made. A heartfelt 'Yes' to a lifetime of love and dreams.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date" data-i18n="time_date_3">July 16, 2026</div>
+              <p class="timeline-desc" data-i18n="time_desc_3">Surrounded by our beloved family and friends, we say 'I Do' at Citadel Hall.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         JULY 2026 EDITORIAL CALENDAR GRID + DUAL CALENDAR BUTTONS
+         ========================================================================== -->
+    <section class="calendar-section">
+      <div class="calendar-card" data-aos="zoom-in-up">
+        <div class="calendar-save-script" data-i18n="cal_save">Mark Your Calendar</div>
+        <div class="calendar-month-title" data-i18n="cal_title">JULY 2026</div>
+
+        <div id="calendar-grid" class="calendar-grid"></div>
+
+        <!-- Dual Direct Calendar Links (Google & Phone .ics) -->
+        <div class="calendar-actions-wrapper">
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mohamed+%26+Sama+Royal+Wedding+%E2%99%A5&dates=20260716T160000Z/20260716T210000Z&details=We+are+overjoyed+to+celebrate+our+wedding+with+you!+Doors+open+at+7%3A00+PM+at+Citadel+Hall+-+The+Grand+Ballroom.&location=Citadel+Hall+-+The+Grand+Ballroom,+Cairo" 
+             target="_blank" rel="noopener noreferrer" class="btn-cal-action btn-google-cal" title="Save directly to Google Calendar">
+            <i class="fab fa-google"></i>
+            <span data-i18n="btn_google">Add to Google Calendar</span>
+          </a>
+
+          <button id="btn-add-calendar" class="btn-cal-action btn-apple-cal" title="Download for iPhone / Outlook / Phone Calendar">
+            <i class="fab fa-apple"></i>
+            <span data-i18n="btn_apple">Save to Apple / Phone (.ics)</span>
+          </button>
+        </div>
+
+        <!-- Embedded Colorful Live Countdown -->
+        <div class="calendar-countdown">
+          <div class="count-unit">
+            <span id="cal-days">--</span>
+            <label data-i18n="unit_days">Days</label>
+          </div>
+          <div class="count-unit">
+            <span id="cal-hours">--</span>
+            <label data-i18n="unit_hours">Hours</label>
+          </div>
+          <div class="count-unit">
+            <span id="cal-mins">--</span>
+            <label data-i18n="unit_mins">Mins</label>
+          </div>
+          <div class="count-unit">
+            <span id="cal-secs">--</span>
+            <label data-i18n="unit_secs">Secs</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         NEW SECTION 2: INTERACTIVE DIGITAL GUESTBOOK & BLESSINGS WALL (FIREBASE)
+         ========================================================================== -->
+    <section class="guestbook-section">
+      <div class="guestbook-card" data-aos="fade-up">
+        <h2 class="guestbook-title" data-i18n="guestbook_title">Guestbook & Wishes</h2>
+        <div class="guestbook-sub" data-i18n="guestbook_sub">LEAVE A BLESSING FOR MOHAMED + SAMA</div>
+        
+        <!-- Heart Blessings Counter Box -->
+        <div class="blessings-counter-wrapper">
+          <button id="btn-bless" class="blessing-counter-btn" title="Tap to send virtual blessings!">
+            <i class="fas fa-heart"></i>
+            <span id="bless-count" class="blessing-count-display">1,024</span>
+          </button>
+          <p style="font-size: 0.78rem; color: #8C867E; margin-top: 15px;" data-i18n="bless_note">Hearts received from friends & family around the world ♥</p>
+        </div>
+
+        <!-- Interactive Wishes Submission Form (2-40 chars Name, 1-200 chars Message) -->
+        <form id="wish-form" class="guestbook-form" onsubmit="return false;">
+          <div class="form-group">
+            <input type="text" id="wish-name" required minlength="2" maxlength="40" placeholder="Your Name / الاسم" data-i18n-placeholder="wish_name_place">
+          </div>
+          <div class="form-group">
+            <textarea id="wish-msg" rows="3" required minlength="1" maxlength="200" placeholder="Write your blessing or message for the couple... / اكتب رسالة تهنئة للعروسين..." data-i18n-placeholder="wish_msg_place"></textarea>
+          </div>
+          <button type="submit" id="btn-submit-wish" class="btn-submit-wish">
+            <i class="fas fa-paper-plane" style="margin-right: 6px;"></i>
+            <span data-i18n="wish_btn_send">Send Blessing ♥</span>
+          </button>
+        </form>
+
+        <!-- Live Guest Wishes Grid (Powered by Firebase Firestore Real-time onSnapshot) -->
+        <div id="guestbook-grid" class="guestbook-cards-grid">
+          <div class="wish-card" style="grid-column: 1 / -1; text-align: center; padding: 2.5rem;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 1.8rem; color: var(--accent-red); margin-bottom: 10px;"></i>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Loading live guestbook wishes...</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VENUE & LOCATION (WITH VISUAL DETAILS & EMBEDDED MAP PREVIEW)
+         ========================================================================== -->
+    <section class="venue-editorial-section">
+      <div class="venue-card" data-aos="fade-up">
+        <h2 class="venue-title" data-i18n="venue_title">The Grand Ballroom</h2>
+        <div class="venue-subtitle-location" data-i18n="venue_sub">CITADEL HALL — CAIRO</div>
+
+        <div class="location-info-box">
+          <div class="loc-item">
+            <i class="fas fa-clock"></i>
+            <h4 data-i18n="arrival_title">Arrival & Welcome</h4>
+            <p data-i18n="arrival_desc">Doors open at 7:00 PM. We kindly invite our esteemed family & friends to arrive early.</p>
+          </div>
+
+          <div class="loc-item">
+            <i class="fas fa-hotel"></i>
+            <h4 data-i18n="citadel_title">Citadel Hall</h4>
+            <p data-i18n="citadel_desc">The Grand Ballroom. Dedicated valet services & direct reception assistance available.</p>
+          </div>
+
+          <div class="loc-item">
+            <i class="fas fa-compass"></i>
+            <h4 data-i18n="gps_title">Interactive GPS</h4>
+            <p data-i18n="gps_desc">Direct live navigation to the ballroom. Tap below or explore the embedded map.</p>
+          </div>
+        </div>
+
+        <div class="map-preview-wrapper">
+          <iframe 
+            title="Citadel Hall Map Preview"
+            src="https://www.google.com/maps?q=30.029858,31.261276&hl=en&z=15&output=embed" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+        <div class="buttons-group">
+          <a href="https://maps.app.goo.gl/NPbKvCAZKF9Haqs1A?g_st=iw" target="_blank" rel="noopener noreferrer" class="btn-editorial btn-primary">
+            <i class="fas fa-map-marked-alt"></i>
+            <span data-i18n="btn_gps">Open Live GPS Navigation on Google Maps</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-monogram">M / S</div>
+    <p class="footer-date" data-i18n="footer_intro">THURSDAY — JULY 16, 2026 — CITADEL HALL</p>
+  </footer>
+
+  <!-- AOS Animation JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- GSAP Core & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- SweetAlert2 Library -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Custom Interactive Script -->
+  <script src="script.js"></script>
+  <!-- Firebase Modular Real-time Guestbook Script -->
+  <script type="module" src="firebase-guestbook.js"></script>
+</body>
+</html>
