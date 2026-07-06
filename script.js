@@ -20,18 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
     en: {
       case_welcome: "WELCOME TO OUR WEDDING",
       case_subtitle: "THE ROYAL WEDDING INVITATION",
-      case_footer: "THURSDAY — JULY 16, 2026 — CITADEL HALL",
+      case_footer: "THURSDAY — JULY 16, 2026<br>Jewel Sports City Resort & Spa<br>CITADEL HALL",
       case_unseal: "TAP TO OPEN",
       hero_save_date: "Save our Date",
       name_mohamed: "MOHAMED",
       name_sama: "SAMA",
-      hero_invitation_text: "WITH JOYFUL HEARTS & THE BLESSINGS OF OUR FAMILIES<br>WE REQUEST THE HONOR OF YOUR PRESENCE AT THE WEDDING OF",
+      hero_invitation_text: "WITH JOYFUL HEARTS & BLESSINGS OF OUR FAMILIES<br>IT WOULD BE OUR GREATEST PLEASURE TO HAVE YOU JOIN US<br>AS WE CELEBRATE THE START OF OUR FOREVER<br>AND CREATE MEMORIES TO TREASURE FOR A LIFETIME<br>WE LOOK FORWARD TO CELEBRATING WITH YOU",
       date_month: "JULY",
       date_day_name: "THURSDAY",
       date_year: "2026",
-      date_time: "7:00 PM",
-      venue_hall: "CITADEL HALL",
-      venue_ballroom: "THE GRAND BALLROOM",
+      date_time: "8:00 PM",
+      venue_hall: "Jewel Sports City Resort & Spa",
+      venue_ballroom: "CITADEL HALL",
       reception: "an evening of love, music & joyful celebration to follow",
       photo_heading_1: "Two Souls,",
       photo_heading_2: "One Destiny",
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       romance_top_tag: "Together is a beautiful place to be",
       romance_quote: "I have found the one whom my soul loves. Here is to a lifetime of togetherness.",
       journey_start_label: "Where Our Story Began",
-      journey_start_year: "2024",
+      journey_start_year: "2025",
       journey_moving_label: "The Royal Wedding Day",
       journey_moving_year: "2026",
       timeline_title: "Our Love Story",
@@ -66,33 +66,33 @@ document.addEventListener('DOMContentLoaded', () => {
       guestbook_sub: "LEAVE A BLESSING FOR MOHAMED + SAMA",
       bless_note: "Hearts received from friends & family around the world ♥",
       wish_btn_send: "Send Blessing ♥",
-      venue_title: "The Grand Ballroom",
-      venue_sub: "CITADEL HALL — CAIRO",
+      venue_title: "Jewel Sports City Resort & Spa",
+      venue_sub: "CITADEL HALL",
       arrival_title: "Arrival & Welcome",
-      arrival_desc: "Doors open at 7:00 PM. We kindly invite our esteemed family & friends to arrive early.",
+      arrival_desc: "Doors open at 8:00 PM. We kindly invite our esteemed family & friends to arrive early.",
       citadel_title: "Citadel Hall",
-      citadel_desc: "The Grand Ballroom. Dedicated valet services & direct reception assistance available.",
+      citadel_desc: "Direct reception assistance available at the main entrance.",
       gps_title: "Interactive GPS",
       gps_desc: "Direct live navigation to the ballroom. Tap below or explore the embedded map.",
       btn_gps: "Open Live GPS Navigation on Google Maps",
-      footer_intro: "THURSDAY — JULY 16, 2026 — CITADEL HALL",
+      footer_intro: "THURSDAY — JULY 16, 2026<br>Jewel Sports City Resort & Spa<br>CITADEL HALL",
       lang_btn_text: "العربية"
     },
     ar: {
       case_welcome: "يا أهلاً وسهلاً في فرحنا ♥",
       case_subtitle: "دعوة فرح محمد وسما",
-      case_footer: "الخميس ١٦ يوليو ٢٠٢٦ — قاعة القلعة",
+      case_footer: "الخميس ١٦ يوليو ٢٠٢٦<br>جويل سبورتس سيتي ريزورت آند سبا<br>قاعة القلعة",
       case_unseal: "اضغط لفتح الدعوة",
       hero_save_date: "احفظوا موعد الفرح",
       name_mohamed: "MOHAMED",
       name_sama: "SAMA",
-      hero_invitation_text: "بكل حب وسعادة، وبمباركة أهلنا وأحبابنا<br>بيسعدنا ويشرفنا دعوتكم ومشاركتكم فرحتنا يوم زفاف",
+      hero_invitation_text: "بكل حب وسعادة، وبمباركة أهلنا وأحبابنا<br>يسعدنا ويشرفنا دعوتكم ومشاركتكم فرحتنا<br>ونحن نبدأ رحلة العمر وأجمل أيامنا معاً<br>لنصنع ذكريات لا تُنسى تدوم مدى الحياة<br>بانتظاركم لتكمل فرحتنا بوجودكم معنا",
       date_month: "يوليو",
       date_day_name: "الخميس",
       date_year: "٢٠٢٦",
-      date_time: "٧:٠٠ مساءً",
-      venue_hall: "قاعة القلعة",
-      venue_ballroom: "القاعة الكبرى",
+      date_time: "٨:٠٠ مساءً",
+      venue_hall: "جويل سبورتس سيتي ريزورت آند سبا",
+      venue_ballroom: "قاعة القلعة",
       reception: "فرحة وسهرة حلوة وأجمل أوقات بتجمعنا بيكو",
       photo_heading_1: "أجمل بداية،",
       photo_heading_2: "ورحلة عمر سعيدة",
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       romance_top_tag: "بداية أجمل رحلة عمر",
       romance_quote: "واخترتك لتكون رفيق دربي وأجمل أقداري.. معاً نبدأ حكاية عمر لا تنتهي.",
       journey_start_label: "بداية حكايتنا",
-      journey_start_year: "٢٠٢٤",
+      journey_start_year: "٢٠٢٥",
       journey_moving_label: "يوم زفافنا الكبير",
       journey_moving_year: "٢٠٢٦",
       timeline_title: "حكايتنا",
@@ -127,16 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
       guestbook_sub: "اكتبوا لنا دعوة حلوة أو تهنئة تفرح قلبنا ♥",
       bless_note: "قلوب ومحبة واصلة لنا من كل حبايبنا ♥",
       wish_btn_send: "ابعت التهنئة ♥",
-      venue_title: "القاعة الكبرى",
-      venue_sub: "قاعة القلعة — القاهرة",
+      venue_title: "جويل سبورتس سيتي ريزورت آند سبا",
+      venue_sub: "قاعة القلعة",
       arrival_title: "ميعاد الحضور والترحيب",
-      arrival_desc: "الأبواب بتفتح الساعة ٧:٠٠ مساءً. تنورونا وتشرفونا من بدري عشان نلحق نتصور ونفرح سوا.",
-      citadel_title: "قاعة القلعة",
-      citadel_desc: "متوفر خدمة ركن عربيات (فاليه) ومساعدة في الاستقبال عند المدخل الرئيسي.",
+      arrival_desc: "الأبواب بتفتح الساعة ٨:٠٠ مساءً. تنورونا وتشرفونا من بدري عشان نلحق نتصور ونفرح سوا.",
+      citadel_title: "قاعة القلعة (Citadel Hall)",
+      citadel_desc: "بداخل جويل سبورتس سيتي ريزورت آند سبا. متوفر مساعدة في الاستقبال عند المدخل الرئيسي.",
       gps_title: "خريطة الوصول",
       gps_desc: "خريطة سهلة بتوصلك لحد باب القاعة بسهولة. اضغط على الزرار تحت عشان تفتح الـ GPS.",
       btn_gps: "افتح الخريطة والـ GPS على خرائط جوجل",
-      footer_intro: "الخميس ١٦ يوليو ٢٠٢٦ — قاعة القلعة",
+      footer_intro: "الخميس ١٦ يوليو ٢٠٢٦<br>جويل سبورتس سيتي ريزورت آند سبا<br>قاعة القلعة",
       lang_btn_text: "English"
     }
   };
@@ -179,6 +179,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update toggle button text
     const langLabel = document.getElementById('lang-label');
     if (langLabel) langLabel.textContent = dict.lang_btn_text;
+
+    // Update calendar day headers bilingually
+    const arDays = ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
+    const enDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    document.querySelectorAll('.cal-day-header').forEach((el, idx) => {
+      if (arDays[idx] && enDays[idx]) {
+        el.textContent = lang === 'ar' ? arDays[idx] : enDays[idx];
+      }
+    });
 
     if (typeof confetti === 'function') {
       confetti({
@@ -267,8 +276,8 @@ DTSTAMP:20260630T120000Z
 DTSTART:20260716T170000Z
 DTEND:20260716T220000Z
 SUMMARY:Mohamed & Sama Royal Wedding Celebration ♥
-DESCRIPTION:We are overjoyed to celebrate our wedding with you! Doors open at 7:00 PM at Citadel Hall - The Grand Ballroom.
-LOCATION:Citadel Hall - The Grand Ballroom, Cairo
+DESCRIPTION:We are overjoyed to celebrate our wedding with you! Doors open at 8:00 PM at Jewel Sports City Resort & Spa - Citadel Hall.
+LOCATION:Jewel Sports City Resort & Spa - Citadel Hall, Cairo
 END:VEVENT
 END:VCALENDAR`;
 
@@ -284,7 +293,7 @@ END:VCALENDAR`;
       if (typeof Swal !== 'undefined') {
         Swal.fire({
           title: currentLang === 'ar' ? 'تم حفظ ميعاد الفرح عندكم! ♥' : 'Event Saved to Calendar! ♥',
-          text: currentLang === 'ar' ? 'الخميس ١٦ يوليو ٢٠٢٦ الساعة ٧:٠٠ مساءً — قاعة القلعة، مستنيينكم ♥' : 'Thursday, July 16, 2026 at 7:00 PM — Citadel Hall',
+          text: currentLang === 'ar' ? 'الخميس ١٦ يوليو ٢٠٢٦ الساعة ٨:٠٠ مساءً — جويل سبورتس سيتي ريزورت آند سبا (قاعة القلعة)' : 'Thursday, July 16, 2026 at 8:00 PM — Jewel Sports City (Citadel Hall)',
           icon: 'success',
           confirmButtonText: currentLang === 'ar' ? 'تمام جداً ♥' : 'Great!',
           confirmButtonColor: '#141414',
@@ -321,9 +330,9 @@ END:VCALENDAR`;
   }
 
   // ==========================================================================
-  // 4. LIVE COUNTDOWN TO JULY 16, 2026 (7:00 PM)
+  // 4. LIVE COUNTDOWN TO JULY 16, 2026 (8:00 PM)
   // ==========================================================================
-  const targetDate = new Date('2026-07-16T19:00:00').getTime();
+  const targetDate = new Date('2026-07-16T20:00:00').getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
