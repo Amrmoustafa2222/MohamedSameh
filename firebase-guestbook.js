@@ -39,24 +39,8 @@ try {
   console.warn("⚠️ Firebase configuration is placeholder or offline. Fallback mode enabled:", error.message);
 }
 
-// Fallback initial demo messages if Firebase is not configured yet
-const fallbackMessages = [
-  {
-    name: "Uncle Ahmed & Family",
-    message: "Wishing you a lifetime of love, joy, and endless happiness together! So proud of you both.",
-    createdAt: new Date()
-  },
-  {
-    name: "Sarah & Karim",
-    message: "May your love grow stronger each and every passing year. Congratulations on this royal day!",
-    createdAt: new Date()
-  },
-  {
-    name: "Dr. Mahmoud",
-    message: "So excited to celebrate your royal wedding! You two are truly made for each other ♥",
-    createdAt: new Date()
-  }
-];
+// Fallback array starts completely EMPTY (no fake/dummy comments!)
+const fallbackMessages = [];
 
 // ==========================================================================
 // REAL-TIME FIRESTORE LISTENER (onSnapshot)
@@ -69,9 +53,14 @@ function renderMessages(messages) {
   guestbookGrid.innerHTML = "";
 
   if (messages.length === 0) {
+    const currentLang = localStorage.getItem("invitation_lang") || "en";
+    const emptyText = currentLang === "ar" 
+      ? "لسه مفيش تهاني أو تعليقات. ابدأ أنت واكتب أول رسالة ودعوة حلوة للعروسين محمد وسما! ♥"
+      : "No wishes yet. Be the first to send your blessing to Mohamed & Sama! ♥";
+      
     guestbookGrid.innerHTML = `
-      <div class="wish-card" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-        <p style="font-size: 1.1rem; color: var(--text-muted);">No wishes yet. Be the first to send your blessing to Mohamed & Sama! ♥</p>
+      <div class="wish-card" style="width: 100%; max-width: 100%; text-align: center; padding: 3rem 1.5rem; flex: 1 1 100%;">
+        <p style="font-size: 1.05rem; color: var(--text-muted); margin: 0 auto; font-style: normal;">${emptyText}</p>
       </div>
     `;
     return;
