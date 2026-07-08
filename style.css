@@ -1,624 +1,1579 @@
 /* ==========================================================================
-   MOHAMED & SAMA — INTERACTIVE ROYAL EDITORIAL SCRIPT
-   Bilingual English & Arabic Engine | Timeline & Guestbook | Smart Calendar
+   MOHAMED & SAMA — THE ROYAL EDITORIAL WEDDING INVITATION
+   Bilingual English & Arabic Engine | Timeline & Guestbook | 100% Responsive
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize AOS
-  if (typeof AOS !== 'undefined') {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-out-cubic',
-      once: false
-    });
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600&display=swap');
+
+:root {
+  /* Editorial Luxury Palette */
+  --bg-paper: #FAF8F5;          /* Warm Silk / Creme Fine Paper */
+  --bg-paper-alt: #F3EFEA;      /* Slightly deeper creme */
+  --text-dark: #141414;         /* High-Contrast Editorial Charcoal */
+  --text-muted: #5A5652;        /* Warm Stone Grey */
+  --accent-red: #E84A5F;        /* Romantic Editorial Rose / Crimson */
+  --accent-deep: #C92A42;       /* Deep Wine Rose */
+  --accent-gold: #B89146;       /* Royal Calligraphy Gold */
+  --accent-gold-light: #D4AF37; /* Metallic Gold Accent */
+  
+  /* Typography */
+  --font-arabic-sacred: 'Amiri', serif;
+  --font-arabic-body: 'Alexandria', 'Cairo', sans-serif;
+  --font-editorial: 'Bodoni Moda', 'Cormorant Garamond', serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-script: 'Great Vibes', cursive;
+
+  /* Shadows */
+  --shadow-editorial: 0 25px 60px rgba(20, 20, 20, 0.07);
+  --shadow-card: 0 15px 35px rgba(20, 20, 20, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  line-height: 1.8;
+  position: relative;
+  transition: font-family 0.3s ease;
+}
+
+/* RTL Arabic Typography Shift */
+html[dir="rtl"] body {
+  font-family: var(--font-arabic-body);
+  letter-spacing: 0 !important;
+}
+
+html[dir="rtl"] .case-subtitle,
+html[dir="rtl"] .date-detail,
+html[dir="rtl"] .venue-hall-sub,
+html[dir="rtl"] .blessings-sub,
+html[dir="rtl"] .venue-subtitle-location {
+  letter-spacing: 0 !important;
+  font-family: var(--font-arabic-body);
+  font-weight: 600;
+}
+
+html[dir="rtl"] .editorial-invitation-text {
+  letter-spacing: 0 !important;
+  font-family: var(--font-arabic-body);
+  font-size: 0.95rem;
+  line-height: 2.1;
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  html[dir="rtl"] .editorial-invitation-text {
+    font-size: 0.88rem;
+    line-height: 2;
   }
-
-  // ==========================================================================
-  // 0. COMPLETE BILINGUAL DICTIONARY & DEFAULT ENGLISH OPENING (EN <-> AR)
-  // ==========================================================================
-  const translations = {
-    en: {
-      case_welcome: "WELCOME TO OUR WEDDING",
-      case_subtitle: "THE ROYAL WEDDING INVITATION",
-      case_footer: "THURSDAY — JULY 16, 2026<br>Jewel Sports City Resort & Spa<br>CITADEL HALL",
-      case_unseal: "TAP TO OPEN",
-      hero_save_date: "Save our Date",
-      name_mohamed: "MOHAMED",
-      name_sama: "SAMA",
-      hero_invitation_text: "WITH JOYFUL HEARTS & BLESSINGS OF OUR FAMILIES<br>IT WOULD BE OUR GREATEST PLEASURE TO HAVE YOU JOIN US<br>AS WE CELEBRATE THE START OF OUR FOREVER<br>AND CREATE MEMORIES TO TREASURE FOR A LIFETIME<br>WE LOOK FORWARD TO CELEBRATING WITH YOU",
-      date_month: "JULY",
-      date_day_name: "THURSDAY",
-      date_year: "2026",
-      date_time: "8:00 PM",
-      venue_hall: "Jewel Sports City Resort & Spa",
-      venue_ballroom: "CITADEL HALL",
-      reception: "an evening of love, music & joyful celebration to follow",
-      photo_heading_1: "Two Souls,",
-      photo_heading_2: "One Destiny",
-      photo_sub: "A CELEBRATION OF ETERNAL LOVE, FRIENDSHIP & FAMILY",
-      groom_name: "Mohamed Sameh",
-      groom_drop: "Drop real Groom photo here",
-      bride_name: "Sama",
-      bride_drop: "Drop real Bride photo here",
-      romance_top_tag: "Together is a beautiful place to be",
-      romance_quote: "I have found the one whom my soul loves. Here is to a lifetime of togetherness.",
-      journey_start_label: "Where Our Story Began",
-      journey_start_year: "2025",
-      journey_moving_label: "The Royal Wedding Day",
-      journey_moving_year: "2026",
-      timeline_title: "Our Love Story",
-      timeline_sub: "THE JOURNEY TO FOREVER",
-      time_date_1: "2024",
-      time_desc_1: "A chance encounter that sparked an undeniable connection and changed our worlds forever.",
-      time_date_2: "2025",
-      time_desc_2: "Under the starlight, a promise was made. A heartfelt 'Yes' to a lifetime of love and dreams.",
-      time_date_3: "July 16, 2026",
-      time_desc_3: "Surrounded by our beloved family and friends, we say 'I Do' at Citadel Hall.",
-      cal_save: "Mark Your Calendar",
-      cal_title: "JULY 2026",
-      btn_google: "Add to Google Calendar",
-      btn_apple: "Save to Apple / Phone (.ics)",
-      unit_days: "Days",
-      unit_hours: "Hours",
-      unit_mins: "Mins",
-      unit_secs: "Secs",
-      guestbook_title: "Guestbook & Wishes",
-      guestbook_sub: "LEAVE A BLESSING FOR MOHAMED + SAMA",
-      bless_note: "Hearts received from friends & family around the world ♥",
-      wish_btn_send: "Send Blessing ♥",
-      venue_title: "Jewel Sports City Resort & Spa",
-      venue_sub: "CITADEL HALL",
-      arrival_title: "Arrival & Welcome",
-      arrival_desc: "Doors open at 8:00 PM. We kindly invite our esteemed family & friends to arrive early.",
-      citadel_title: "Citadel Hall",
-      citadel_desc: "Direct reception assistance available at the main entrance.",
-      gps_title: "Interactive GPS",
-      gps_desc: "Direct live navigation to the ballroom. Tap below or explore the embedded map.",
-      btn_gps: "Open Live GPS Navigation on Google Maps",
-      footer_intro: "THURSDAY — JULY 16, 2026<br>Jewel Sports City Resort & Spa<br>CITADEL HALL",
-      lang_btn_text: "العربية"
-    },
-    ar: {
-      case_welcome: "يا أهلاً وسهلاً في فرحنا ♥",
-      case_subtitle: "دعوة فرح محمد وسما",
-      case_footer: "الخميس ١٦ يوليو ٢٠٢٦<br>جويل سبورتس سيتي ريزورت آند سبا<br>قاعة القلعة",
-      case_unseal: "اضغط لفتح الدعوة",
-      hero_save_date: "احفظوا موعد الفرح",
-      name_mohamed: "MOHAMED",
-      name_sama: "SAMA",
-      hero_invitation_text: "بكل حب وسعادة، وبمباركة أهلنا وأحبابنا<br>يسعدنا ويشرفنا دعوتكم ومشاركتكم فرحتنا<br>ونحن نبدأ رحلة العمر وأجمل أيامنا معاً<br>لنصنع ذكريات لا تُنسى تدوم مدى الحياة<br>بانتظاركم لتكمل فرحتنا بوجودكم معنا",
-      date_month: "يوليو",
-      date_day_name: "الخميس",
-      date_year: "٢٠٢٦",
-      date_time: "٨:٠٠ مساءً",
-      venue_hall: "جويل سبورتس سيتي ريزورت آند سبا",
-      venue_ballroom: "قاعة القلعة",
-      reception: "فرحة وسهرة حلوة وأجمل أوقات بتجمعنا بيكو",
-      photo_heading_1: "أجمل بداية،",
-      photo_heading_2: "ورحلة عمر سعيدة",
-      photo_sub: "يوم جميل وفرحة كبيرة بتكمل بوجودكم معانا",
-      groom_name: "Mohamed Sameh",
-      groom_drop: "ضع صورة العريس هنا",
-      bride_name: "Sama",
-      bride_drop: "ضع صورة العروسة هنا",
-      romance_top_tag: "بداية أجمل رحلة عمر",
-      romance_quote: "واخترتك لتكون رفيق دربي وأجمل أقداري.. معاً نبدأ حكاية عمر لا تنتهي.",
-      journey_start_label: "بداية حكايتنا",
-      journey_start_year: "٢٠٢٥",
-      journey_moving_label: "يوم زفافنا الكبير",
-      journey_moving_year: "٢٠٢٦",
-      timeline_title: "حكايتنا",
-      timeline_sub: "أجمل أيام وذكريات جمعتنا",
-      time_date_1: "٢٠٢٤",
-      time_desc_1: "أول لقاء وصدفة حلوة غيرت حياتنا، وكانت بداية أجمل حكاية.",
-      time_date_2: "٢٠٢٥",
-      time_desc_2: "يوم الخطوبة والوعد بالبقاء سوا طول العمر، وبداية خطوتنا الجديدة.",
-      time_date_3: "١٦ يوليو ٢٠٢٦",
-      time_desc_3: "يوم فرحنا الكبير! مستنيينكم تشاركونا فرحتنا ولمتنا الحلوة في قاعة القلعة.",
-      cal_save: "سجلوا ميعاد الفرح عندكم",
-      cal_title: "يوليو ٢٠٢٦",
-      btn_google: "إضافة لتقويم جوجل",
-      btn_apple: "حفظ في نتيجة الموبايل (.ics)",
-      unit_days: "أيام",
-      unit_hours: "ساعات",
-      unit_mins: "دقائق",
-      unit_secs: "ثواني",
-      guestbook_title: "كلمة حلوة للعروسين",
-      guestbook_sub: "اكتبوا لنا دعوة حلوة أو تهنئة تفرح قلبنا ♥",
-      bless_note: "قلوب ومحبة واصلة لنا من كل حبايبنا ♥",
-      wish_btn_send: "ابعت التهنئة ♥",
-      venue_title: "جويل سبورتس سيتي ريزورت آند سبا",
-      venue_sub: "قاعة القلعة",
-      arrival_title: "ميعاد الحضور والترحيب",
-      arrival_desc: "الأبواب بتفتح الساعة ٨:٠٠ مساءً. تنورونا وتشرفونا من بدري عشان نلحق نتصور ونفرح سوا.",
-      citadel_title: "قاعة القلعة (Citadel Hall)",
-      citadel_desc: "بداخل جويل سبورتس سيتي ريزورت آند سبا. متوفر مساعدة في الاستقبال عند المدخل الرئيسي.",
-      gps_title: "خريطة الوصول",
-      gps_desc: "خريطة سهلة بتوصلك لحد باب القاعة بسهولة. اضغط على الزرار تحت عشان تفتح الـ GPS.",
-      btn_gps: "افتح الخريطة والـ GPS على خرائط جوجل",
-      footer_intro: "الخميس ١٦ يوليو ٢٠٢٦<br>جويل سبورتس سيتي ريزورت آند سبا<br>قاعة القلعة",
-      lang_btn_text: "English"
-    }
-  };
-
-  // FORCE DEFAULT OPENING LANGUAGE TO BE ENGLISH ('en')
-  let currentLang = 'en';
-  if (localStorage.getItem('invitation_lang_forced')) {
-    currentLang = localStorage.getItem('invitation_lang') || 'en';
-  } else {
-    localStorage.setItem('invitation_lang_forced', 'true');
-    localStorage.setItem('invitation_lang', 'en');
-    currentLang = 'en';
+}
+@media (max-width: 480px) {
+  html[dir="rtl"] .editorial-invitation-text {
+    font-size: 0.8rem;
+    line-height: 1.9;
   }
+}
 
-  function applyLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('invitation_lang', lang);
+html[dir="rtl"] .hero-script-save,
+html[dir="rtl"] .reception-script,
+html[dir="rtl"] .calendar-save-script {
+  font-family: var(--font-arabic-sacred);
+  font-weight: 700;
+}
 
-    const htmlEl = document.documentElement;
-    htmlEl.setAttribute('lang', lang);
-    htmlEl.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+/* Subtle Fine Paper Texture Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: radial-gradient(#141414 0.75px, transparent 0.75px);
+  background-size: 18px 18px;
+  z-index: 999;
+}
 
-    const dict = translations[lang];
-    if (!dict) return;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: #D5CEC5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-red);
+}
 
-    // Update all matching elements
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (dict[key]) {
-        el.innerHTML = dict[key];
-      }
-    });
+/* ==========================================================================
+   SUBTLE FLOATING PARTICLES CANVAS
+   ========================================================================== */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
 
-    // Update placeholders
-    const nameInput = document.getElementById('wish-name');
-    const msgInput = document.getElementById('wish-msg');
-    if (nameInput) nameInput.placeholder = lang === 'ar' ? 'اسم الكريم / Your Name' : 'Your Name / الاسم';
-    if (msgInput) msgInput.placeholder = lang === 'ar' ? 'اكتب رسالة تهنئة أو أمنية للعروسين...' : 'Write your blessing or message for the couple...';
+/* ==========================================================================
+   FLOATING LANGUAGE SWITCHER & AUDIO CONTROLLER
+   ========================================================================== */
+.controls-group {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+}
 
-    // Update toggle button text
-    const langLabel = document.getElementById('lang-label');
-    if (langLabel) langLabel.textContent = dict.lang_btn_text;
+html[dir="rtl"] .controls-group {
+  right: auto;
+  left: 25px;
+}
 
-    // Update calendar day headers bilingually
-    const arDays = ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
-    const enDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    document.querySelectorAll('.cal-day-header').forEach((el, idx) => {
-      if (arDays[idx] && enDays[idx]) {
-        el.textContent = lang === 'ar' ? arDays[idx] : enDays[idx];
-      }
-    });
+.lang-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.7rem 1.4rem;
+  background: #FFFFFF;
+  border: 1px solid #E0DADA;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-    if (typeof confetti === 'function') {
-      confetti({
-        particleCount: 25,
-        spread: 50,
-        origin: { y: 0.9 },
-        colors: ['#E84A5F', '#C5A059', '#141414']
-      });
-    }
+html[dir="rtl"] .lang-switch-btn {
+  font-family: var(--font-arabic-body);
+}
+
+.lang-switch-btn:hover {
+  background: var(--text-dark);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.lang-switch-btn i {
+  color: var(--accent-red);
+  font-size: 1.1rem;
+}
+
+.audio-toggle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid #E0DADA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.audio-toggle:hover {
+  transform: scale(1.1) rotate(10deg);
+  background: var(--text-dark);
+  color: #FFFFFF;
+}
+
+.audio-toggle.playing {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  animation: pulseAudio 2s infinite;
+}
+
+@keyframes pulseAudio {
+  0% { box-shadow: 0 0 0 0 rgba(232, 74, 95, 0.4); }
+  70% { box-shadow: 0 0 0 18px rgba(232, 74, 95, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(232, 74, 95, 0); }
+}
+
+/* ==========================================================================
+   FLAWLESS ROYAL INVITATION CASE / SLEEVE INTRO REVEAL
+   ========================================================================== */
+#cinematic-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 15, 15, 0.92);
+  backdrop-filter: blur(15px);
+  overflow: hidden;
+  transition: opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  padding: 1rem;
+}
+
+.royal-case-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  height: 420px;
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #FAF8F5;
+}
+
+/* Dual Sliding Panels */
+.case-panel-top, .case-panel-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #F2ECE1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.case-panel-top {
+  top: 0;
+  border-bottom: 1px solid #DFD7CA;
+  padding-bottom: 25px;
+}
+
+.case-panel-bottom {
+  bottom: 0;
+  border-top: 1px solid #DFD7CA;
+  padding-top: 35px;
+}
+
+.case-panel-top::inner-border,
+.case-panel-bottom::inner-border {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid #D5C8B2;
+}
+
+.case-panel-top::inner-border {
+  top: 15px; left: 15px; right: 15px; bottom: 0;
+  border-bottom: none;
+}
+
+.case-panel-bottom::inner-border {
+  top: 0; left: 15px; right: 15px; bottom: 15px;
+  border-top: none;
+}
+
+.case-monogram {
+  font-family: var(--font-editorial);
+  font-size: 3.5rem;
+  color: var(--text-dark);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.case-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.case-footer-text {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: var(--text-dark);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* Royal Embossed Wax Seal Button */
+.royal-wax-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #D12F47 0%, #A61E34 75%, #7D1223 100%);
+  border: 4px double rgba(255, 255, 255, 0.45);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #FAF2E6;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.royal-wax-seal:hover {
+  transform: translate(-50%, -50%) scale(1.08) rotate(4deg);
+  box-shadow: 0 18px 45px rgba(209, 47, 71, 0.6);
+}
+
+.royal-wax-seal .seal-initials {
+  font-family: var(--font-editorial);
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.royal-wax-seal .seal-action {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.case-hidden-card {
+  position: absolute;
+  inset: 15px;
+  background: #FFFFFF;
+  border: 1px solid #EAE2D6;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  padding: 1rem;
+  text-align: center;
+}
+
+.royal-case-wrapper.is-open .case-panel-top { transform: translateY(-100%); }
+.royal-case-wrapper.is-open .case-panel-bottom { transform: translateY(100%); }
+.royal-case-wrapper.is-open .royal-wax-seal {
+  transform: translate(-50%, -50%) scale(1.6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   HERO SECTION & ROYAL SACRED CALLIGRAPHY
+   ========================================================================== */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 1rem;
+  position: relative;
+}
+
+.editorial-main-card {
+  max-width: 900px;
+  width: 100%;
+  background: #FFFFFF;
+  padding: 6.5rem 3.5rem;
+  text-align: center;
+  border: 1px solid #E8E2D8;
+  box-shadow: var(--shadow-editorial);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.editorial-main-card::inner-border {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border: 1px solid #F3EDE3;
+  pointer-events: none;
+}
+
+.sacred-verse-container {
+  margin-bottom: 3rem;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px dashed #EAE3D8;
+}
+
+.quranic-bismillah {
+  font-family: var(--font-arabic-sacred);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #141414;
+  line-height: 1.8;
+  direction: rtl;
+  margin-bottom: 0.8rem;
+}
+
+.quranic-arabic {
+  font-family: var(--font-arabic-sacred);
+  font-size: 1.7rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #B89146 0%, #D4AF37 50%, #997328 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 2.2;
+  direction: rtl;
+}
+
+.hero-script-save {
+  font-family: var(--font-script);
+  font-size: 3.8rem;
+  color: var(--accent-red);
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+
+/* Layered Monogram Composition */
+.hero-monogram-composition {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem 0 4rem;
+  padding: 2.5rem 0;
+}
+
+.giant-initials {
+  font-family: var(--font-editorial);
+  font-size: 15rem;
+  font-weight: 400;
+  letter-spacing: -6px;
+  color: #161616;
+  line-height: 0.72;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  user-select: none;
+  transform: scaleY(1.12);
+}
+
+.giant-initials .initial-m, 
+.giant-initials .initial-s, 
+.giant-initials .initial-slash {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.giant-initials .initial-slash {
+  font-weight: 200;
+  font-style: italic;
+  font-size: 13rem;
+  color: #2D2D2D;
+  transform: rotate(-12deg);
+}
+
+.full-names-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  padding: 0.15rem 2.8rem;
+  font-family: var(--font-editorial);
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: 11px;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  white-space: nowrap;
+  line-height: 1.4;
+  box-shadow: 0 0 0 4px #FFFFFF;
+  will-change: transform, opacity;
+}
+
+.full-names-overlay .plus-divider {
+  font-family: var(--font-editorial);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accent-red);
+  margin: 0 14px;
+}
+
+.editorial-invitation-text {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 3.5rem auto 2.5rem;
+  line-height: 2.2;
+  max-width: 780px;
+}
+
+.editorial-date-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  max-width: 580px;
+  margin: 2.5rem auto 3.5rem;
+}
+
+.date-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-month {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 6px;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.date-rule {
+  width: 100%;
+  height: 1px;
+  background: #D8D1C7;
+  margin: 6px 0;
+}
+
+.date-detail {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 4px 0;
+}
+
+/* Number 17 in Hero styled in #E84A5F */
+.date-center {
+  font-family: var(--font-editorial);
+  font-size: 5.5rem;
+  font-weight: 500;
+  line-height: 0.85;
+  padding: 0 2.5rem;
+  color: var(--accent-red);
+}
+
+.venue-editorial-display {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.venue-hall-title {
+  font-family: var(--font-editorial);
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+
+.venue-hall-sub {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.reception-script {
+  font-family: var(--font-script);
+  font-size: 2.8rem;
+  color: var(--text-muted);
+  margin-top: 2.5rem;
+}
+
+/* ==========================================================================
+   CINEMATIC PHOTO ASSEMBLY SECTION
+   ========================================================================== */
+.photo-assembly-section {
+  padding: 6rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-heading {
+  font-family: var(--font-editorial);
+  font-size: 2.8rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.section-heading span {
+  font-style: italic;
+  color: var(--accent-red);
+}
+
+/* ==========================================================================
+   ARTISTIC EDITORIAL ROMANCE CANVAS & JOURNEY ("حب لا ينتهي / حكاية العمر")
+   ========================================================================== */
+.artistic-romance-section {
+  padding: 5rem 1.5rem 6rem;
+  background: var(--bg-paper);
+  text-align: center;
+  position: relative;
+}
+
+/* Top Romantic Tagline */
+.romance-top-tag {
+  font-family: var(--font-editorial);
+  font-size: 1.45rem;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-style: italic;
+}
+
+html[dir="rtl"] .romance-top-tag {
+  font-family: var(--font-arabic-body);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0;
+  font-size: 1.6rem;
+}
+
+.tag-symbols {
+  color: var(--accent-red);
+  font-style: normal;
+  font-size: 1.3rem;
+}
+
+/* ==========================================================================
+   GRAND SCROLL-MERGING HEART PORTAL (PHOTO + FRAME SPLIT & MERGE ON SCROLL)
+   ========================================================================== */
+.grand-heart-portal-wrapper {
+  position: relative;
+  max-width: 820px;
+  margin: 2.5rem auto 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grand-heart-portal {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.18;
+  max-width: 740px;
+  margin: 0 auto;
+  cursor: pointer;
+  filter: drop-shadow(0 15px 35px rgba(20, 20, 20, 0.12));
+}
+
+/* Left & Right Halves - Each is 50% width with overflow: hidden! */
+.heart-half {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease, filter 1.2s ease;
+  z-index: 5;
+}
+
+.heart-half.left-half {
+  left: 0;
+  transform: translateX(0) rotate(0deg);
+}
+
+.heart-half.right-half {
+  right: 0;
+  transform: translateX(0) rotate(0deg);
+}
+
+/* WHEN SPLIT APART (On scroll out or initial state .is-split) */
+.grand-heart-portal.is-split .heart-half.left-half {
+  transform: translateX(-55px) rotate(-6deg);
+  opacity: 0.15;
+  filter: blur(3px);
+}
+
+.grand-heart-portal.is-split .heart-half.right-half {
+  transform: translateX(55px) rotate(6deg);
+  opacity: 0.15;
+  filter: blur(3px);
+}
+
+/* The Content Wrapper inside each half (Takes 200% width to equal full heart!) */
+.half-content-wrapper {
+  position: absolute;
+  top: 0;
+  width: 200%;
+  height: 100%;
+  clip-path: url(#royal-heart-clip);
+  background: #FAF8F5;
+  overflow: hidden;
+}
+
+.left-half .half-content-wrapper {
+  left: 0;
+}
+
+.right-half .half-content-wrapper {
+  right: 0;
+}
+
+/* The Photo */
+.half-content-wrapper img,
+.full-heart-content img {
+  width: 100%;
+  height: 136%;
+  object-fit: cover;
+  object-position: 8% 15%;
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: contrast(1.03) brightness(1.01);
+}
+
+.grand-heart-portal:hover .half-content-wrapper img,
+.grand-heart-portal:hover .full-heart-content img {
+  transform: scale(1.05);
+}
+
+/* FULL MERGED HEART LAYER - FOR 100% CRYSTAL CLEAR QUALITY & NO SEAMS OR MISALIGNMENTS WHEN MERGED! */
+.full-heart-content {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: url(#royal-heart-clip);
+  background: #FAF8F5;
+  overflow: hidden;
+  z-index: 15;
+  opacity: 1;
+  transition: opacity 0.8s ease 0.3s;
+}
+
+.grand-heart-portal.is-split .full-heart-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Soft Romantic Vignette Shadow inside Heart */
+.heart-inner-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.25);
+}
+
+/* SUBTLE RED PULSING BORDER AROUND THE MERGED HEART */
+.heart-pulsing-frame-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 25;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.8s ease 0.4s;
+  animation: heartPulseGlow 3s infinite ease-in-out;
+}
+
+.grand-heart-portal.is-split .heart-pulsing-frame-svg {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes heartPulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(232, 74, 95, 0.35));
+    transform: scale(1);
   }
-
-  // Initialize Language
-  applyLanguage(currentLang);
-
-  const langBtn = document.getElementById('lang-toggle');
-  if (langBtn) {
-    langBtn.addEventListener('click', () => {
-      applyLanguage(currentLang === 'en' ? 'ar' : 'en');
-    });
+  50% {
+    filter: drop-shadow(0 0 14px rgba(232, 74, 95, 0.85)) drop-shadow(0 0 6px rgba(255, 107, 129, 0.6));
+    transform: scale(1.006);
   }
+}
 
-  // ==========================================================================
-  // 1. DYNAMIC JULY 2026 EDITORIAL CALENDAR WITH PULSING BLACK/WHITE NUMBER 16
-  // ==========================================================================
-  const calendarContainer = document.getElementById('calendar-grid');
-  if (calendarContainer) {
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    daysOfWeek.forEach(dayName => {
-      const el = document.createElement('div');
-      el.className = 'cal-day-header';
-      el.textContent = dayName;
-      calendarContainer.appendChild(el);
-    });
+/* Bottom Romantic Serif Quote */
+.romance-editorial-quote {
+  font-family: var(--font-editorial);
+  font-size: 1.95rem;
+  line-height: 1.45;
+  color: var(--text-dark);
+  max-width: 680px;
+  margin: 3rem auto 4rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
 
-    // July 2026 starts on Wednesday (Index 3)
-    const emptyDaysBefore = 3;
-    for (let i = 0; i < emptyDaysBefore; i++) {
-      const emptyEl = document.createElement('div');
-      emptyEl.className = 'cal-day empty';
-      calendarContainer.appendChild(emptyEl);
-    }
+html[dir="rtl"] .romance-editorial-quote {
+  font-family: var(--font-arabic-body);
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.75rem;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
 
-    for (let day = 1; day <= 31; day++) {
-      const dayEl = document.createElement('div');
-      dayEl.className = 'cal-day';
-      
-      if (day === 16) {
-        dayEl.classList.add('wedding-day');
-        dayEl.textContent = '16';
-        dayEl.title = 'Mohamed & Sama Royal Wedding Day!';
-        
-        dayEl.addEventListener('click', (e) => {
-          if (typeof confetti === 'function') {
-            const rect = e.target.getBoundingClientRect();
-            confetti({
-              particleCount: 40,
-              spread: 60,
-              origin: {
-                x: (rect.left + rect.width / 2) / window.innerWidth,
-                y: (rect.top + rect.height / 2) / window.innerHeight
-              },
-              colors: ['#C5A059', '#E84A5F', '#141414']
-            });
-          }
-        });
-      } else {
-        dayEl.textContent = day;
-      }
-      calendarContainer.appendChild(dayEl);
-    }
+.quote-symbols {
+  color: #C5A059;
+  margin-left: 8px;
+  font-style: normal;
+  display: inline-block;
+}
+
+html[dir="rtl"] .quote-symbols {
+  margin-right: 8px;
+  margin-left: 0;
+}
+
+/* The Love Journey Arrow & Years */
+.journey-arrow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 560px;
+  margin: 0 auto;
+  gap: 1.5rem;
+}
+
+.journey-point {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.point-label {
+  font-family: var(--font-editorial);
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+html[dir="rtl"] .point-label {
+  font-family: var(--font-arabic-body);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.15rem;
+}
+
+.point-year {
+  font-family: var(--font-editorial);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--text-dark);
+  line-height: 1;
+  letter-spacing: 2px;
+}
+
+html[dir="rtl"] .point-year {
+  font-family: var(--font-arabic-body);
+  font-weight: 700;
+  letter-spacing: 0;
+  font-size: 2.8rem;
+}
+
+.journey-arrow-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  margin-top: 15px;
+}
+
+.hand-drawn-arrow-svg {
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+  overflow: visible;
+  transition: transform 0.4s ease;
+}
+
+html[dir="rtl"] .hand-drawn-arrow-svg {
+  transform: scaleX(-1);
+}
+
+/* ==========================================================================
+   NEW SECTION 1: OUR LOVE STORY TIMELINE ("قصة حبنا / محطات السعادة")
+   ========================================================================== */
+.timeline-section {
+  padding: 6rem 1.5rem;
+  background: var(--bg-paper-alt);
+  border-top: 1px solid #E5DFD5;
+  text-align: center;
+}
+
+.timeline-card {
+  max-width: 850px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  padding: 5rem 3.5rem;
+  border: 1px solid #E3DCD2;
+  box-shadow: var(--shadow-editorial);
+}
+
+.timeline-title {
+  font-family: var(--font-editorial);
+  font-size: 2.8rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-sub {
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent-red);
+  font-weight: 600;
+  margin-bottom: 3.5rem;
+}
+
+.timeline-wrapper {
+  position: relative;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+/* Central Vertical Line */
+.timeline-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  background: #D8D1C7;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  width: 100%;
+}
+
+.timeline-item:last-child { margin-bottom: 0; }
+
+.timeline-content {
+  width: 44%;
+  padding: 1.5rem;
+  background: #FAF8F5;
+  border: 1px solid #EAE3D8;
+  border-radius: 6px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+html[dir="rtl"] .timeline-content { text-align: right; }
+
+.timeline-content:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-red);
+}
+
+.timeline-item:nth-child(even) { flex-direction: row-reverse; }
+.timeline-item:nth-child(even) .timeline-content { text-align: right; }
+html[dir="rtl"] .timeline-item:nth-child(even) .timeline-content { text-align: left; }
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3px solid var(--accent-red);
+  box-shadow: 0 0 0 5px #FAF8F5;
+  z-index: 2;
+}
+
+.timeline-date {
+  font-family: var(--font-editorial);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   JULY 2026 EDITORIAL CALENDAR & DUAL CALENDAR BUTTONS
+   ========================================================================== */
+.calendar-section {
+  padding: 6rem 1.5rem;
+  background: #FFFFFF;
+  border-top: 1px solid #E5DFD5;
+  border-bottom: 1px solid #E5DFD5;
+}
+
+.calendar-card {
+  max-width: 750px;
+  margin: 0 auto;
+  background: #FAF8F5;
+  padding: 4.5rem 3rem;
+  text-align: center;
+  border: 1px solid #E3DCD2;
+  box-shadow: var(--shadow-editorial);
+}
+
+.calendar-save-script {
+  font-family: var(--font-script);
+  font-size: 3.5rem;
+  color: var(--accent-red);
+  margin-bottom: 0.5rem;
+}
+
+.calendar-month-title {
+  font-family: var(--font-editorial);
+  font-size: 1.8rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1.2rem 0.5rem;
+  max-width: 450px;
+  margin: 0 auto 2.5rem;
+}
+
+.cal-day-header {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #EFEAE2;
+}
+
+.cal-day {
+  font-family: var(--font-editorial);
+  font-size: 1.35rem;
+  color: var(--text-dark);
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cal-day.empty { visibility: hidden; }
+
+.cal-day.wedding-day {
+  font-weight: 700;
+  position: relative;
+  cursor: pointer;
+  z-index: 2;
+  animation: pulseNumberColor 3.8s infinite ease-in-out;
+}
+
+@keyframes pulseNumberColor {
+  0%, 100% { color: #141414; }
+  50% { color: #FFFFFF; }
+}
+
+.cal-day.wedding-day::before {
+  content: '♥';
+  position: absolute;
+  font-size: 3.2rem;
+  color: var(--accent-red);
+  z-index: -1;
+  animation: pulseHeartShapeSlow 3.8s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+@keyframes pulseHeartShapeSlow {
+  0%, 100% { transform: scale(0.7); opacity: 0.5; filter: drop-shadow(0 0 5px rgba(232, 74, 95, 0.3)); }
+  50% { transform: scale(1.28); opacity: 1; filter: drop-shadow(0 0 15px rgba(232, 74, 95, 0.75)); }
+}
+
+/* Dual Calendar Action Buttons */
+.calendar-actions-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.btn-cal-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.9rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+html[dir="rtl"] .btn-cal-action {
+  font-family: var(--font-arabic-body);
+}
+
+.btn-google-cal {
+  background: #141414;
+  color: #FFFFFF;
+  border: 1px solid #141414;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+.btn-google-cal:hover {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(232, 74, 95, 0.3);
+}
+
+.btn-apple-cal {
+  background: #FFFFFF;
+  color: #141414;
+  border: 1px solid #D5CEC5;
+}
+
+.btn-apple-cal:hover {
+  background: #141414;
+  color: #FFFFFF;
+  border-color: #141414;
+  transform: translateY(-2px);
+}
+
+/* Live Countdown */
+.calendar-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  padding-top: 2.5rem;
+  border-top: 1px dashed #DDD6CD;
+}
+
+.count-unit {
+  background: #FFFFFF;
+  border: 1px solid #ECE4D8;
+  border-radius: 12px;
+  padding: 1.2rem 0.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.count-unit:hover { transform: translateY(-4px); border-color: var(--accent-red); }
+.count-unit span {
+  font-family: var(--font-editorial);
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-red) 0%, #C92A42 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
+}
+
+.count-unit label { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dark); }
+html[dir="rtl"] .count-unit label { font-family: var(--font-arabic-body); letter-spacing: 0; }
+
+/* ==========================================================================
+   NEW SECTION 2: INTERACTIVE DIGITAL GUESTBOOK & BLESSINGS WALL
+   ========================================================================== */
+.guestbook-section {
+  padding: 6rem 1.5rem;
+  background: var(--bg-paper-alt);
+  text-align: center;
+}
+
+.guestbook-card {
+  max-width: 850px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  padding: 5rem 3.5rem;
+  border: 1px solid #E6DFD5;
+  box-shadow: var(--shadow-editorial);
+}
+
+.guestbook-title { font-family: var(--font-editorial); font-size: 2.8rem; color: var(--text-dark); margin-bottom: 0.5rem; }
+.guestbook-sub { font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-red); font-weight: 600; margin-bottom: 2.5rem; }
+
+/* Heart Blessings Counter Box */
+.blessings-counter-wrapper {
+  margin: 2rem 0 3.5rem;
+  padding: 2rem;
+  background: #FAF8F5;
+  border: 1px dashed #DCD4C7;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.blessing-counter-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #E84A5F 0%, #C92A42 100%);
+  color: #FFFFFF;
+  border: 4px solid #FAF8F5;
+  box-shadow: 0 20px 45px rgba(232, 74, 95, 0.35);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blessing-counter-btn:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 25px 55px rgba(232, 74, 95, 0.5); }
+.blessing-counter-btn i { font-size: 2.5rem; margin-bottom: 4px; animation: heartbeatFast 1.5s infinite; }
+
+@keyframes heartbeatFast {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.2); }
+  30% { transform: scale(1); }
+}
+
+.blessing-count-display { font-family: var(--font-editorial); font-size: 1.5rem; font-weight: 700; line-height: 1; }
+
+/* Guestbook Form */
+.guestbook-form {
+  max-width: 550px;
+  margin: 0 auto 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: left;
+}
+
+html[dir="rtl"] .guestbook-form { text-align: right; }
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background: #FAF8F5;
+  border: 1px solid #DCD4C7;
+  border-radius: 6px;
+  color: var(--text-dark);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+html[dir="rtl"] .form-group input,
+html[dir="rtl"] .form-group textarea {
+  font-family: var(--font-arabic-body);
+}
+
+.form-group input:focus, .form-group textarea:focus {
+  border-color: var(--accent-red);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(232, 74, 95, 0.1);
+}
+
+.btn-submit-wish {
+  padding: 1rem 2.5rem;
+  background: var(--text-dark);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: center;
+}
+
+html[dir="rtl"] .btn-submit-wish { font-family: var(--font-arabic-body); letter-spacing: 0; }
+.btn-submit-wish:hover { background: var(--accent-red); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(232, 74, 95, 0.3); }
+
+/* Live Wishes Display Grid - HORIZONTAL CAROUSEL SLIDER! */
+.guestbook-cards-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding: 1rem 0.5rem 1.8rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-red) #EFEAE2;
+}
+
+.guestbook-cards-grid::-webkit-scrollbar {
+  height: 6px;
+}
+.guestbook-cards-grid::-webkit-scrollbar-track {
+  background: #EFEAE2;
+  border-radius: 10px;
+}
+.guestbook-cards-grid::-webkit-scrollbar-thumb {
+  background: var(--accent-red);
+  border-radius: 10px;
+}
+
+.wish-card {
+  flex: 0 0 340px;
+  max-width: 360px;
+  scroll-snap-align: center;
+  background: #FAF8F5;
+  border: 1px solid #EAE3D8;
+  border-radius: 12px;
+  padding: 1.8rem 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+html[dir="rtl"] .wish-card { text-align: right; }
+.wish-card:hover { transform: translateY(-5px); border-color: #D5CEC5; }
+
+.wish-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+
+.wish-card h5 {
+  font-family: var(--font-editorial);
+  font-size: 1rem;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+html[dir="rtl"] .wish-card h5 { font-family: var(--font-arabic-body); }
+
+/* ==========================================================================
+   VENUE & EMBEDDED MAP SECTION
+   ========================================================================== */
+.venue-editorial-section {
+  padding: 6rem 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.venue-card {
+  background: #FFFFFF;
+  padding: 4.5rem 3.5rem;
+  border: 1px solid #E6DFD5;
+  box-shadow: var(--shadow-editorial);
+}
+
+.venue-title { font-family: var(--font-editorial); font-size: 2.8rem; color: var(--text-dark); margin-bottom: 0.8rem; }
+.venue-subtitle-location { font-family: var(--font-body); font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 2rem; font-weight: 600; }
+
+.location-info-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2.5rem 0;
+  padding: 2rem;
+  background: #FAF8F5;
+  border: 1px solid #EAE3D8;
+  border-radius: 4px;
+  text-align: left;
+}
+
+html[dir="rtl"] .location-info-box {
+  text-align: right;
+}
+
+.loc-item { display: flex; flex-direction: column; gap: 6px; }
+.loc-item i { color: var(--accent-red); font-size: 1.3rem; margin-bottom: 4px; }
+.loc-item h4 { font-family: var(--font-editorial); font-size: 1.25rem; color: var(--text-dark); }
+html[dir="rtl"] .loc-item h4 { font-family: var(--font-arabic-body); font-weight: 700; }
+.loc-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+.map-preview-wrapper {
+  margin: 2.5rem 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid #E6DFD5;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  position: relative;
+  height: 340px;
+}
+
+.map-preview-wrapper iframe { width: 100%; height: 100%; border: 0; }
+
+.buttons-group { display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+
+.btn-editorial {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1.1rem 2.8rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+html[dir="rtl"] .btn-editorial {
+  font-family: var(--font-arabic-body);
+}
+
+.btn-primary { background: var(--text-dark); color: #FFFFFF; box-shadow: 0 10px 25px rgba(20, 20, 20, 0.15); }
+.btn-primary:hover { background: var(--accent-red); transform: translateY(-3px); box-shadow: 0 15px 35px rgba(232, 74, 95, 0.3); }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer { text-align: center; padding: 5rem 1.5rem; background: var(--text-dark); color: #FFFFFF; }
+.footer-monogram { font-family: var(--font-editorial); font-size: 3rem; letter-spacing: 4px; color: #FFFFFF; margin-bottom: 1rem; }
+.footer-date { font-size: 0.85rem; letter-spacing: 4px; color: #A39E97; line-height: 1.7; }
+html[dir="rtl"] .footer-date { font-family: var(--font-arabic-body); letter-spacing: 0; }
+
+/* ==========================================================================
+   100% PERFECT MOBILE RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+  .royal-case-wrapper { height: 380px; }
+  .case-monogram { font-size: 2.6rem; }
+  .royal-wax-seal { width: 90px; height: 90px; }
+  .royal-wax-seal .seal-initials { font-size: 1.5rem; }
+  
+  .editorial-main-card { padding: 4rem 1.25rem; }
+  
+  .giant-initials { font-size: 7.5rem; gap: 0.5rem; }
+  .giant-initials .initial-slash { font-size: 6.5rem; }
+  .full-names-overlay { font-size: 1rem; letter-spacing: 5px; padding: 0.15rem 1.2rem; }
+  .editorial-invitation-text { font-size: 0.72rem; letter-spacing: 2px; line-height: 2; margin: 2.5rem auto 2rem; }
+  
+  .editorial-date-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .date-rule { width: 50%; }
+  .date-center { font-size: 4.2rem; padding: 0.8rem 0; }
+  
+  .grand-heart-portal-wrapper { max-width: 98%; margin: 1.5rem auto 3rem; }
+  .grand-heart-portal { max-width: 480px; width: 100%; }
+  .romance-editorial-quote { font-size: 1.45rem; margin: 2rem auto 3rem; }
+  html[dir="rtl"] .romance-editorial-quote { font-size: 1.4rem; }
+  .journey-arrow-row { gap: 0.8rem; max-width: 100%; }
+  .point-year, html[dir="rtl"] .point-year { font-size: 2.2rem; }
+  .hand-drawn-arrow-svg { max-width: 120px; }
+  
+  .calendar-card, .timeline-card, .guestbook-card, .venue-card { padding: 3rem 1.25rem; }
+  
+  .calendar-countdown { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .count-unit span { font-size: 2rem; }
+  
+  .calendar-actions-wrapper { flex-direction: column; width: 100%; }
+  .btn-cal-action { width: 100%; justify-content: center; }
+  
+  /* Timeline responsive */
+  .timeline-wrapper::before { left: 0; }
+  .timeline-item, .timeline-item:nth-child(even) { flex-direction: column; align-items: flex-start; padding-left: 2rem; }
+  html[dir="rtl"] .timeline-item,
+  html[dir="rtl"] .timeline-item:nth-child(even) { padding-left: 0; padding-right: 2rem; align-items: flex-end; }
+  .timeline-content, .timeline-item:nth-child(even) .timeline-content { width: 100%; text-align: left; }
+  html[dir="rtl"] .timeline-content,
+  html[dir="rtl"] .timeline-item:nth-child(even) .timeline-content { text-align: right; }
+  .timeline-dot { left: 0; top: 0; transform: translate(-50%, 0); }
+  html[dir="rtl"] .timeline-dot { left: auto; right: 0; transform: translate(50%, 0); }
+  
+  /* Guestbook responsive carousel */
+  .guestbook-cards-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0.5rem 0.5rem 1.5rem;
   }
-
-  // ==========================================================================
-  // 2. PROPOSAL #1: SMART "ADD TO CALENDAR" BUTTON (.ICS DOWNLOAD - JULY 16)
-  // ==========================================================================
-  const btnAddCal = document.getElementById('btn-add-calendar');
-  if (btnAddCal) {
-    btnAddCal.addEventListener('click', () => {
-      const icsContent = 
-`BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Mohamed & Sama Royal Wedding//EN
-BEGIN:VEVENT
-UID:royal-wedding-mohamed-sama-2026@citadelhall.com
-DTSTAMP:20260630T120000Z
-DTSTART:20260716T170000Z
-DTEND:20260716T220000Z
-SUMMARY:Mohamed & Sama Royal Wedding Celebration ♥
-DESCRIPTION:We are overjoyed to celebrate our wedding with you! Doors open at 8:00 PM at Jewel Sports City Resort & Spa - Citadel Hall.
-LOCATION:Jewel Sports City Resort & Spa - Citadel Hall, Cairo
-END:VEVENT
-END:VCALENDAR`;
-
-      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'Mohamed_Sama_Royal_Wedding.ics');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      if (typeof Swal !== 'undefined') {
-        Swal.fire({
-          title: currentLang === 'ar' ? 'تم حفظ ميعاد الفرح عندكم! ♥' : 'Event Saved to Calendar! ♥',
-          text: currentLang === 'ar' ? 'الخميس ١٦ يوليو ٢٠٢٦ الساعة ٨:٠٠ مساءً — جويل سبورتس سيتي ريزورت آند سبا (قاعة القلعة)' : 'Thursday, July 16, 2026 at 8:00 PM — Jewel Sports City (Citadel Hall)',
-          icon: 'success',
-          confirmButtonText: currentLang === 'ar' ? 'تمام جداً ♥' : 'Great!',
-          confirmButtonColor: '#141414',
-          background: '#FAF8F5'
-        });
-      }
-    });
+  .wish-card {
+    flex: 0 0 86%;
+    max-width: 320px;
+    scroll-snap-align: center;
   }
+  
+  .location-info-box { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
+  .map-preview-wrapper { height: 250px; }
+  
+  .controls-group { bottom: 20px; right: 15px; }
+  html[dir="rtl"] .controls-group { left: 15px; }
+}
 
-  // ==========================================================================
-  // 3. INTERACTIVE BLESSINGS COUNTER
-  // ==========================================================================
-  const btnBless = document.getElementById('btn-bless');
-  const countDisplay = document.getElementById('bless-count');
-  if (btnBless && countDisplay) {
-    let currentBlessings = 1024;
-    btnBless.addEventListener('click', () => {
-      currentBlessings++;
-      countDisplay.textContent = currentBlessings.toLocaleString();
-
-      if (typeof confetti === 'function') {
-        const rect = btnBless.getBoundingClientRect();
-        confetti({
-          particleCount: 45,
-          spread: 70,
-          origin: {
-            x: (rect.left + rect.width / 2) / window.innerWidth,
-            y: (rect.top + rect.height / 2) / window.innerHeight
-          },
-          colors: ['#E84A5F', '#C92A42', '#C5A059']
-        });
-      }
-    });
-  }
-
-  // ==========================================================================
-  // 4. LIVE COUNTDOWN TO JULY 16, 2026 (8:00 PM)
-  // ==========================================================================
-  const targetDate = new Date('2026-07-16T20:00:00').getTime();
-
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const diff = targetDate - now;
-
-    if (diff <= 0) return;
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((diff % (1000 * 60 * 60)) / 1000);
-
-    const pad = n => n < 10 ? `0${n}` : n;
-    
-    if (document.getElementById('cal-days')) document.getElementById('cal-days').textContent = pad(days);
-    if (document.getElementById('cal-hours')) document.getElementById('cal-hours').textContent = pad(hours);
-    if (document.getElementById('cal-mins')) document.getElementById('cal-mins').textContent = pad(mins);
-    if (document.getElementById('cal-secs')) document.getElementById('cal-secs').textContent = pad(secs);
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  // ==========================================================================
-  // 5. GSAP SCROLL ANIMATIONS (PHOTO ASSEMBLY)
-  // ==========================================================================
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.from('.photo-frame.left-frame', {
-      scrollTrigger: {
-        trigger: '.photo-assembly-section',
-        start: 'top 80%',
-        end: 'center center',
-        scrub: 1
-      },
-      x: -150,
-      rotation: -12,
-      opacity: 0.3
-    });
-
-    gsap.from('.photo-frame.right-frame', {
-      scrollTrigger: {
-        trigger: '.photo-assembly-section',
-        start: 'top 80%',
-        end: 'center center',
-        scrub: 1
-      },
-      x: 150,
-      rotation: 12,
-      opacity: 0.3
-    });
-
-    gsap.from('.center-heart-connection', {
-      scrollTrigger: {
-        trigger: '.photo-assembly-section',
-        start: 'top 70%'
-      },
-      scale: 0,
-      duration: 1,
-      ease: 'back.out(2)'
-    });
-  }
-
-  // ==========================================================================
-  // 6. SUBTLE & DELICATE FLOATING HEARTS CANVAS
-  // ==========================================================================
-  const canvas = document.getElementById('particles-canvas');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    class GentleHeart {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * width;
-        this.y = height + 30;
-        this.size = Math.random() * 8 + 6;
-        this.speedY = -(Math.random() * 0.4 + 0.15);
-        this.speedX = (Math.random() - 0.5) * 0.2;
-        this.alpha = Math.random() * 0.25 + 0.08;
-      }
-      update() {
-        this.y += this.speedY;
-        this.x += Math.sin(this.y * 0.015) * 0.3;
-
-        if (this.y < -30) this.reset();
-      }
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.scale(this.size / 20, this.size / 20);
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.bezierCurveTo(-10, -10, -20, 5, 0, 20);
-        ctx.bezierCurveTo(20, 5, 10, -10, 0, 0);
-        ctx.fillStyle = `rgba(232, 74, 95, ${this.alpha})`;
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-
-    const heartsCount = 6;
-    const hearts = Array.from({ length: heartsCount }, () => new GentleHeart());
-
-    function animateHearts() {
-      ctx.clearRect(0, 0, width, height);
-      hearts.forEach(h => {
-        h.update();
-        h.draw();
-      });
-      requestAnimationFrame(animateHearts);
-    }
-    animateHearts();
-  }
-
-  // ==========================================================================
-  // 7. ROMANTIC SOUNDTRACK PLAYER & FLAWLESS ROYAL SLEEVE REVEAL
-  // ==========================================================================
-  const introOverlay = document.getElementById('cinematic-intro');
-  const royalCaseWrapper = document.getElementById('royal-case-wrapper');
-  const openBtn = document.getElementById('btn-open-invite');
-  const audioToggle = document.getElementById('audio-toggle');
-  const weddingAudio = document.getElementById('wedding-audio');
-  let isPlayingAudio = false;
-
-  function startAudio() {
-    if (weddingAudio) {
-      weddingAudio.volume = 0.75;
-      weddingAudio.play().then(() => {
-        isPlayingAudio = true;
-        if (audioToggle) {
-          audioToggle.classList.add('playing');
-          audioToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-        }
-      }).catch(err => {
-        console.log('Audio autoplay prevented or file missing:', err);
-      });
-    }
-  }
-
-  function stopAudio() {
-    if (weddingAudio) {
-      weddingAudio.pause();
-      isPlayingAudio = false;
-      if (audioToggle) {
-        audioToggle.classList.remove('playing');
-        audioToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-      }
-    }
-  }
-
-  if (audioToggle) {
-    audioToggle.addEventListener('click', () => {
-      isPlayingAudio ? stopAudio() : startAudio();
-    });
-  }
-
-  // JAW-DROPPING GSAP REVEAL WHEN OPENING THE INVITATION
-  function triggerJawDroppingReveal() {
-    if (typeof gsap === 'undefined') return;
-
-    const tl = gsap.timeline();
-
-    // 1. Reveal Sacred Calligraphy
-    tl.fromTo('.sacred-verse-container', 
-      { opacity: 0, y: -40 },
-      { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }
-    );
-
-    // 2. Sweeping Giant Letter M from Left
-    tl.fromTo('.giant-initials .initial-m',
-      { opacity: 0, x: -180, scale: 1.3 },
-      { opacity: 1, x: 0, scale: 1, duration: 1.3, ease: 'back.out(1.4)' },
-      '-=0.8'
-    );
-
-    // 3. Sweeping Giant Letter S from Right
-    tl.fromTo('.giant-initials .initial-s',
-      { opacity: 0, x: 180, scale: 1.3 },
-      { opacity: 1, x: 0, scale: 1, duration: 1.3, ease: 'back.out(1.4)' },
-      '-=1.1'
-    );
-
-    // 4. Slicing Slash
-    tl.fromTo('.giant-initials .initial-slash',
-      { opacity: 0, scale: 0, rotation: -45 },
-      { opacity: 1, scale: 1, rotation: -12, duration: 1, ease: 'power3.out' },
-      '-=0.9'
-    );
-
-    // 5. Blooming Overlapping Names Box
-    tl.fromTo('.full-names-overlay',
-      { opacity: 0, scale: 0.6, boxShadow: '0 0 0 0px #FFFFFF' },
-      { opacity: 1, scale: 1, boxShadow: '0 0 0 4px #FFFFFF', duration: 1.1, ease: 'elastic.out(1, 0.7)' },
-      '-=0.6'
-    );
-  }
-
-  // FLAWLESS ROYAL CASE SLIDING OPEN REVEAL
-  let isOpened = false;
-  function triggerCaseOpen() {
-    if (isOpened) return;
-    isOpened = true;
-
-    if (typeof confetti === 'function') {
-      confetti({
-        particleCount: 75,
-        spread: 90,
-        origin: { y: 0.5 },
-        colors: ['#D12F47', '#C5A059', '#141414']
-      });
-    }
-
-    if (royalCaseWrapper) royalCaseWrapper.classList.add('is-open');
-
-    setTimeout(() => {
-      if (introOverlay) {
-        introOverlay.style.opacity = '0';
-        setTimeout(() => {
-          introOverlay.style.display = 'none';
-          triggerJawDroppingReveal();
-        }, 800);
-      }
-    }, 1200);
-
-    startAudio();
-  }
-
-  if (openBtn) openBtn.addEventListener('click', (e) => { e.stopPropagation(); triggerCaseOpen(); });
-  if (royalCaseWrapper) royalCaseWrapper.addEventListener('click', triggerCaseOpen);
-
-  // ==========================================================================
-  // SCROLL-MERGING GRAND HEART PORTAL (PHOTO + FRAME SPLIT & MERGE ON SCROLL)
-  // ==========================================================================
-  const heartPortal = document.getElementById('wedding-heart-portal');
-
-  if (heartPortal) {
-    // Interactive click/tap to replay merge with confetti
-    heartPortal.addEventListener('click', () => {
-      heartPortal.classList.add('is-split');
-      setTimeout(() => {
-        heartPortal.classList.remove('is-split');
-        setTimeout(() => {
-          if (typeof confetti === 'function') {
-            const rect = heartPortal.getBoundingClientRect();
-            confetti({
-              particleCount: 50,
-              spread: 70,
-              origin: {
-                x: (rect.left + rect.width / 2) / window.innerWidth,
-                y: (rect.top + rect.height / 2) / window.innerHeight
-              },
-              colors: ['#E84A5F', '#C5A059', '#FFFFFF']
-            });
-          }
-        }, 1200);
-      }, 500);
-    });
-
-    // Scroll Observer: Merges when entering viewport, splits when leaving!
-    if (typeof IntersectionObserver !== 'undefined') {
-      const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-            // Merge together!
-            heartPortal.classList.remove('is-split');
-          } else if (!entry.isIntersecting || entry.intersectionRatio < 0.05) {
-            // Split apart when scrolled out of view so it can re-merge next time!
-            heartPortal.classList.add('is-split');
-          }
-        });
-      }, {
-        threshold: [0, 0.05, 0.2, 0.5, 0.8, 1.0]
-      });
-      scrollObserver.observe(heartPortal);
-    } else {
-      setTimeout(() => { heartPortal.classList.remove('is-split'); }, 500);
-    }
-  }
-});
-
+@media (max-width: 480px) {
+  .quranic-bismillah { font-size: 1.35rem; }
+  .quranic-arabic { font-size: 1.3rem; line-height: 2; }
+  .hero-script-save { font-size: 3rem; }
+  .giant-initials { font-size: 6rem; gap: 0.3rem; }
+  .giant-initials .initial-slash { font-size: 5rem; }
+  .full-names-overlay { font-size: 0.88rem; letter-spacing: 4px; padding: 0.15rem 0.8rem; }
+  .editorial-invitation-text { font-size: 0.65rem; letter-spacing: 1.5px; line-height: 1.9; }
+  .section-heading, .venue-title, .guestbook-title, .timeline-title { font-size: 2.1rem; }
+}
