@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malls Report - Presentation</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Poppins:wght@200;300;400;600;700;800&family=Manrope:wght@200;400;700;800&family=Syncopate:wght@700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF5500;
+            --primary-glow: rgba(255, 85, 0, 0.4);
+            --bg-dark: #050507;
+            --bg-gray: #eef0f5;
+            --surface-card-light: #ffffff;
+            --text-main-dark: #ffffff;
+            --text-main-light: #0f1016;
+            --text-muted-light: #777788;
+            --w: 240mm;
+            --h: 180mm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::selection {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        ::-moz-selection {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        body {
+            background-color: #000000;
+            font-family: 'Cairo', 'Manrope', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            color: #ffffff;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .presentation-stage {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #14141c 0%, #020203 100%);
+        }
+
+        .slide-scaler {
+            width: var(--w);
+            height: var(--h);
+            position: relative;
+            transform-origin: center center;
+            box-shadow: 0 50px 120px rgba(0, 0, 0, 0.95), 0 0 60px rgba(255, 85, 0, 0.18);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.97) translateY(8px);
+            z-index: 1;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .slide.active {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            transform: scale(1) translateY(0) !important;
+            z-index: 10 !important;
+        }
+
+        /* Architectural Corner CAD Crosshairs */
+        .cad-crosshair {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            z-index: 6;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .cad-crosshair::before, .cad-crosshair::after {
+            content: '';
+            position: absolute;
+            background: var(--primary);
+        }
+        .cad-crosshair::before { top: 7px; left: 0; width: 100%; height: 1.5px; }
+        .cad-crosshair::after { left: 7px; top: 0; height: 100%; width: 1.5px; }
+        
+        .cad-crosshair.tl { top: 18px; left: 18px; }
+        .cad-crosshair.tr { top: 18px; right: 18px; }
+        .cad-crosshair.bl { bottom: 18px; left: 18px; }
+        .cad-crosshair.br { bottom: 18px; right: 18px; }
+
+        /* =========================================================
+           COVER LAYOUTS (DARK HERO)
+           ========================================================= */
+        .slide-cover {
+            background: var(--bg-dark);
+            overflow: hidden;
+        }
+
+        .animated-bg-dark {
+            position: absolute;
+            inset: 0;
+            background: #08080d;
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(255, 85, 0, 0.18) 0%, transparent 60%),
+                linear-gradient(135deg, #0d0d16 0%, #050508 100%);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-image-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-image-container img {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 70%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.1) contrast(1.15);
+        }
+
+        .image-fade-overlay {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(90deg, #08080d 0%, #08080d 35%, rgba(8, 8, 13, 0.85) 60%, transparent 100%),
+                linear-gradient(0deg, rgba(8, 8, 13, 0.85) 0%, transparent 45%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .moving-grid-dark {
+            position: absolute;
+            inset: -50px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 35px 35px;
+            animation: gridMove 25s linear infinite;
+            z-index: 3;
+            pointer-events: none;
+        }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(35px, 35px); }
+        }
+
+        .animated-compass-ring {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            border: 1px dashed rgba(255, 85, 0, 0.25);
+            border-radius: 50%;
+            top: -200px;
+            right: -150px;
+            z-index: 3;
+            pointer-events: none;
+            animation: rotateCompass 60s linear infinite;
+        }
+        @keyframes rotateCompass {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes rotateCompassReverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .cover-content {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            padding: 20mm;
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .cad-coord-header-dark {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 85, 0, 0.08);
+            border: 1px solid rgba(255, 85, 0, 0.25);
+            padding: 6px 14px;
+            border-radius: 4px;
+        }
+
+        .pulse-light {
+            width: 7px;
+            height: 7px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulseGlow 1.8s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        .center-piece {
+            margin-top: 14mm;
+            margin-bottom: auto;
+        }
+
+        .eyebrow-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .eyebrow-tag {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 11.5px;
+            color: var(--primary);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            border-left: 3.5px solid var(--primary);
+            padding-left: 14px;
+        }
+
+        .eyebrow-sub {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        .mega-title {
+            font-size: 78px;
+            font-weight: 800;
+            letter-spacing: -3px;
+            line-height: 1.0;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+
+        .mega-title.outline-text {
+            color: var(--primary);
+            text-shadow: 0 0 35px rgba(255, 85, 0, 0.4);
+        }
+
+        .bottom-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+
+        .doc-spec {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 9.5px;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 4px;
+            text-align: right;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .doc-spec .spec-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Slide Cover Entrance Animation */
+        .slide-cover .eyebrow-container,
+        .slide-cover .mega-title,
+        .slide-cover .cad-coord-header-dark,
+        .slide-cover .doc-spec {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-cover.active .eyebrow-container,
+        .slide-cover.active .mega-title,
+        .slide-cover.active .cad-coord-header-dark,
+        .slide-cover.active .doc-spec {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-cover.active .cad-coord-header-dark { transition-delay: 0.10s; }
+        .slide-cover.active .eyebrow-container { transition-delay: 0.20s; }
+        .slide-cover.active .mega-title:nth-of-type(1) { transition-delay: 0.30s; }
+        .slide-cover.active .mega-title:nth-of-type(2) { transition-delay: 0.40s; }
+        .slide-cover.active .doc-spec { transition-delay: 0.50s; }
+
+        /* =========================================================
+           ARCHITECTURAL PLATINUM GRAY CONTENT SLIDES
+           ========================================================= */
+        .slide-gray {
+            background: #eef0f5;
+            background-image: 
+                radial-gradient(circle at 85% 15%, rgba(255, 85, 0, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 15% 85%, rgba(255, 85, 0, 0.04) 0%, transparent 35%),
+                linear-gradient(135deg, #f2f4f8 0%, #e6e9f0 100%);
+            color: #0f1016;
+            overflow: hidden;
+        }
+
+        .moving-grid-gray {
+            position: absolute;
+            inset: -50px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+            background-size: 35px 35px;
+            animation: gridMoveGray 30s linear infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+        @keyframes gridMoveGray {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(35px, 35px); }
+        }
+
+        .animated-compass-ring-gray {
+            position: absolute;
+            width: 680px;
+            height: 680px;
+            border: 1px dashed rgba(255, 85, 0, 0.12);
+            border-radius: 50%;
+            top: -200px;
+            right: -150px;
+            z-index: 3;
+            pointer-events: none;
+            animation: rotateCompass 60s linear infinite;
+        }
+
+        .animated-compass-ring-gray-2 {
+            position: absolute;
+            width: 440px;
+            height: 440px;
+            border: 1px solid rgba(255, 85, 0, 0.08);
+            border-radius: 50%;
+            bottom: -110px;
+            left: -110px;
+            z-index: 3;
+            pointer-events: none;
+            animation: rotateCompassReverse 45s linear infinite;
+        }
+
+        .floating-accent-glow-gray {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(255, 85, 0, 0.07) 0%, rgba(255, 85, 0, 0) 70%);
+            top: -80px;
+            right: -80px;
+            z-index: 3;
+            pointer-events: none;
+            animation: floatGlow 12s ease-in-out infinite alternate;
+        }
+        @keyframes floatGlow {
+            0% { transform: translateY(0) scale(1); opacity: 0.7; }
+            100% { transform: translateY(-30px) scale(1.15); opacity: 1; }
+        }
+
+        .layout-slide-inner {
+            padding: 18mm 22mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cad-coord-header-gray {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-left: 3.5px solid var(--primary);
+            padding: 6px 14px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            font-weight: 700;
+        }
+
+        .header-section-title-gray {
+            font-family: 'Cairo', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: #0f1016;
+            text-align: right;
+            line-height: 1.1;
+        }
+
+        /* STAGGERED ENTRANCE ANIMATIONS FOR CARDS */
+        .projects-grid-gray, .elements-container-gray {
+            display: grid;
+            gap: 16px;
+            margin-top: 5mm;
+        }
+
+        .projects-grid-gray {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .elements-container-gray {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            direction: rtl;
+        }
+
+        .slide .arch-card-gray-v3,
+        .slide .arch-card-horizontal-gray,
+        .slide .section-column,
+        .slide .invoice-highlight-card {
+            opacity: 0;
+            transform: translateY(35px) scale(0.92);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s;
+        }
+
+        .slide.active .arch-card-gray-v3,
+        .slide.active .arch-card-horizontal-gray,
+        .slide.active .section-column,
+        .slide.active .invoice-highlight-card {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Staggered transition delays */
+        .slide.active .arch-card-gray-v3:nth-child(1),
+        .slide.active .arch-card-horizontal-gray:nth-child(1),
+        .slide.active .section-column:nth-child(1) { transition-delay: 0.15s; }
+        .slide.active .arch-card-gray-v3:nth-child(2),
+        .slide.active .arch-card-horizontal-gray:nth-child(2),
+        .slide.active .section-column:nth-child(2) { transition-delay: 0.30s; }
+        .slide.active .arch-card-gray-v3:nth-child(3),
+        .slide.active .arch-card-horizontal-gray:nth-child(3) { transition-delay: 0.45s; }
+        .slide.active .arch-card-gray-v3:nth-child(4) { transition-delay: 0.60s; }
+
+        /* Slide Progress Grid */
+        .progress-grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 4mm;
+            direction: rtl;
+        }
+
+        .slide .progress-card-gray {
+            opacity: 0;
+            transform: translateY(25px) scale(0.94);
+            transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide.active .progress-card-gray {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .slide.active .progress-card-gray:nth-child(1) { transition-delay: 0.10s; }
+        .slide.active .progress-card-gray:nth-child(2) { transition-delay: 0.18s; }
+        .slide.active .progress-card-gray:nth-child(3) { transition-delay: 0.26s; }
+        .slide.active .progress-card-gray:nth-child(4) { transition-delay: 0.34s; }
+        .slide.active .progress-card-gray:nth-child(5) { transition-delay: 0.42s; }
+        .slide.active .progress-card-gray:nth-child(6) { transition-delay: 0.50s; }
+        .slide.active .progress-card-gray:nth-child(7) { transition-delay: 0.58s; }
+        .slide.active .progress-card-gray:nth-child(8) { transition-delay: 0.66s; }
+
+        .progress-card-gray {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-right: 4px solid var(--primary);
+            border-radius: 10px;
+            padding: 13px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .progress-card-gray:hover {
+            transform: translateY(-3px) scale(1.01) !important;
+            box-shadow: 0 14px 30px rgba(255, 85, 0, 0.14) !important;
+            border-color: var(--primary);
+        }
+
+        .progress-num-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 800;
+            color: #ffffff;
+            background: var(--primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(255, 85, 0, 0.25);
+            margin-top: 2px;
+        }
+
+        .progress-card-gray p {
+            font-family: 'Cairo', sans-serif;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #0f1016;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        /* Card Designs */
+        .arch-card-gray-v3 {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-top: 3.5px solid var(--primary);
+            border-radius: 12px;
+            padding: 24px 18px 22px 18px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .arch-card-gray-v3:hover {
+            transform: translateY(-8px) scale(1.03) !important;
+            box-shadow: 0 20px 45px rgba(255, 85, 0, 0.16) !important;
+            border-color: var(--primary);
+        }
+
+        .arch-card-gray-v3 .card-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+            background: var(--primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 4px 12px rgba(255, 85, 0, 0.25);
+        }
+
+        .arch-card-gray-v3 h3 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f1016;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .arch-card-gray-v3 span.sub-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: #777788;
+            letter-spacing: 2px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .arch-card-horizontal-gray {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-right: 5px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px 26px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .arch-card-horizontal-gray:hover {
+            transform: translateX(-8px) scale(1.01) !important;
+            box-shadow: 0 18px 40px rgba(255, 85, 0, 0.15) !important;
+            border-color: var(--primary);
+        }
+
+        .arch-badge-horizontal-gray {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+            background: var(--primary);
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(255, 85, 0, 0.25);
+        }
+
+        .arch-card-horizontal-gray h3 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 18.5px;
+            font-weight: 800;
+            color: #0f1016;
+            margin-bottom: 4px;
+        }
+
+        .arch-card-horizontal-gray span.sub-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: #777788;
+            letter-spacing: 2px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .footer-text-gray {
+            font-size: 8.5px;
+            color: #888899;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* =========================================================
+           PRESENTATION UI NAVIGATION ARROWS & BAR
+           ========================================================= */
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: rgba(15, 15, 20, 0.85);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            user-select: none;
+        }
+
+        .nav-arrow:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 0 30px rgba(255, 85, 0, 0.5);
+            transform: translateY(-50%) scale(1.12);
+        }
+
+        .nav-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .nav-arrow.prev { left: 35px; }
+        .nav-arrow.next { right: 35px; }
+
+        .nav-arrow svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .presentation-bar {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(12, 12, 16, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 8px 24px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            user-select: none;
+        }
+
+        .slide-counter {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .slide-counter span.current {
+            color: var(--primary);
+            font-size: 13px;
+        }
+
+        .mini-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .mini-btn:hover {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mini-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.2;
+        }
+
+        .bar-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .kbd-hint {
+            position: fixed;
+            bottom: 25px;
+            right: 35px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 8.5px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.35);
+            pointer-events: none;
+        }
+
+        /* =========================================================
+           PRINT MEDIA QUERY (STRICT 100% DISAPPEARANCE OF ALL UI BUTTONS IN PRINT/PDF)
+           ========================================================= */
+        @media print {
+            @page {
+                size: 240mm 180mm landscape;
+                margin: 0;
+            }
+
+            html, body {
+                background: none !important;
+                background-color: #ffffff !important;
+                width: 240mm !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            .presentation-stage {
+                width: auto !important;
+                height: auto !important;
+                background: none !important;
+                display: block !important;
+            }
+
+            .slide-scaler {
+                width: 240mm !important;
+                height: auto !important;
+                transform: none !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                overflow: visible !important;
+            }
+
+            .slide {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                width: 240mm !important;
+                height: 180mm !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                transform: none !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                box-sizing: border-box !important;
+                margin: 0 !important;
+                display: block !important;
+            }
+
+            .slide .arch-card-gray-v3,
+            .slide .arch-card-horizontal-gray,
+            .slide .section-column,
+            .slide .invoice-highlight-card,
+            .slide .progress-card-gray,
+            .slide-cover .eyebrow-container,
+            .slide-cover .mega-title,
+            .slide-cover .cad-coord-header-dark,
+            .slide-cover .doc-spec {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            /* STRICT COMPLETE REMOVAL OF ALL INTERACTIVE UI BUTTONS & OVERLAYS FROM PRINT/PDF */
+            .nav-arrow,
+            .presentation-bar,
+            .kbd-hint,
+            #prevBtn,
+            #nextBtn,
+            #barPrev,
+            #barNext,
+            #printBtn,
+            #fullscreenBtn,
+            .mini-btn {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                height: 0 !important;
+                width: 0 !important;
+                overflow: hidden !important;
+                position: absolute !important;
+                top: -9999px !important;
+                left: -9999px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-stage">
+        
+        <!-- Scaled Slide Viewport -->
+        <div class="slide-scaler" id="slideScaler">
+            
+            <!-- SLIDE 1: COVER (DARK ARCHITECTURAL CAD HERO) -->
+            <div class="slide slide-cover active" id="slide-1">
+                <div class="animated-bg-dark">
+                    <div class="hero-image-container">
+                        <img src="assets/malls_cover_hero.jpg" alt="Malls Facade Architecture">
+                        <div class="image-fade-overlay"></div>
+                    </div>
+                    <div class="moving-grid-dark"></div>
+                    <div class="animated-compass-ring"></div>
+                </div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <!-- Foreground Content Layer -->
+                <div class="cover-content">
+                    <div class="top-row">
+                        <div class="cad-coord-header-dark">
+                            <div class="pulse-light"></div>
+                            FACADE ENGINEERING REPORT // V.2026
+                        </div>
+                        <div class="doc-spec" style="flex-direction: row; align-items: center; gap: 10px;">
+                            <span>SPEC</span>
+                            <span class="spec-code">MAL-2026</span>
+                        </div>
+                    </div>
+
+                    <div class="center-piece">
+                        <div class="eyebrow-container">
+                            <span class="eyebrow-tag">ADVANCED FACADES</span>
+                            <span class="eyebrow-sub">// TECHNICAL SPECIFICATION</span>
+                        </div>
+                        <h1 class="mega-title">Malls</h1>
+                        <h1 class="mega-title outline-text">Report.</h1>
+                    </div>
+
+                    <div class="bottom-row">
+                        <div class="doc-spec">
+                            <span>DOCUMENT</span>
+                            <span class="spec-code">MALLS-P01</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: TARGET MALLS (PLATINUM GRAY + SOFT ELEGANT ORANGE) -->
+            <div class="slide slide-gray" id="slide-2">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 02 // TARGET PROJECTS
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">PROJECTS &amp; LOCATIONS</span>
+                            <h1 class="header-section-title-gray">المشاريع والمولات</h1>
+                        </div>
+                    </div>
+
+                    <!-- ARCHITECTURAL GRAY CARDS WITH STAGGERED ENTRANCE -->
+                    <div class="projects-grid-gray">
+                        <div class="arch-card-gray-v3">
+                            <div class="card-num">01</div>
+                            <h3>مول لينيا</h3>
+                            <span class="sub-code">LINEA MALL</span>
+                        </div>
+
+                        <div class="arch-card-gray-v3">
+                            <div class="card-num">02</div>
+                            <h3>مول كازا</h3>
+                            <span class="sub-code">CASA MALL</span>
+                        </div>
+
+                        <div class="arch-card-gray-v3">
+                            <div class="card-num">03</div>
+                            <h3>مول بدر داون تاون</h3>
+                            <span class="sub-code">BADR DOWNTOWN</span>
+                        </div>
+
+                        <div class="arch-card-gray-v3">
+                            <div class="card-num">04</div>
+                            <h3>دي لاين</h3>
+                            <span class="sub-code">D LINE MALL</span>
+                        </div>
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>COMMERCIAL MALLS REPORT // M02</span>
+                        <span style="color: var(--primary);">4 COMMERCIAL LANDMARKS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: REPORT ELEMENTS (PLATINUM GRAY + SOFT ELEGANT ORANGE) -->
+            <div class="slide slide-gray" id="slide-3">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 03 // EVALUATION AXES
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">REPORT AXES</span>
+                            <h1 class="header-section-title-gray">عناصر التقرير</h1>
+                        </div>
+                    </div>
+
+                    <!-- ARCHITECTURAL STACKED GRAY CARDS WITH STAGGERED ENTRANCE -->
+                    <div class="elements-container-gray">
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">01</div>
+                            <div>
+                                <h3>موقف المشروع من ناحية الأعمال القائمة</h3>
+                                <span class="sub-title">ONGOING WORKS &amp; SITE PROGRESS STATUS</span>
+                            </div>
+                        </div>
+
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">02</div>
+                            <div>
+                                <h3>موقف المشروع من ناحية التوريدات</h3>
+                                <span class="sub-title">PROCUREMENT &amp; MATERIAL SUPPLY STATUS</span>
+                            </div>
+                        </div>
+
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">03</div>
+                            <div>
+                                <h3>موقف المشروع من ناحية المستخلصات</h3>
+                                <span class="sub-title">INVOICING &amp; PAYMENT CERTIFICATE STATUS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>COMMERCIAL MALLS REPORT // M03</span>
+                        <span style="color: var(--primary);">3 CORE EVALUATION AXES</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: LINEA MALL HERO (COVER LAYOUT FORMAT WITH LINEA MALL.JPG) -->
+            <div class="slide slide-cover" id="slide-4">
+                <div class="animated-bg-dark">
+                    <div class="hero-image-container">
+                        <img src="assets/Linea mall.jpg" alt="Linea Mall Architecture">
+                        <div class="image-fade-overlay"></div>
+                    </div>
+                    <div class="moving-grid-dark"></div>
+                    <div class="animated-compass-ring"></div>
+                </div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <!-- Foreground Content Layer -->
+                <div class="cover-content">
+                    <div class="top-row">
+                        <div class="cad-coord-header-dark">
+                            <div class="pulse-light"></div>
+                            PROJECT 01 // LINEA MALL
+                        </div>
+                        <div class="doc-spec" style="flex-direction: row; align-items: center; gap: 10px;">
+                            <span>SPEC</span>
+                            <span class="spec-code">LIN-2026</span>
+                        </div>
+                    </div>
+
+                    <div class="center-piece">
+                        <div class="eyebrow-container">
+                            <span class="eyebrow-tag">COMMERCIAL LANDMARK</span>
+                            <span class="eyebrow-sub"></span>
+                        </div>
+                        <h1 class="mega-title">Linea</h1>
+                        <h1 class="mega-title outline-text">Mall.</h1>
+                    </div>
+
+                    <div class="bottom-row">
+                        <div class="doc-spec">
+                            <span>DOCUMENT</span>
+                            <span class="spec-code">MALLS-P04</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: LINEA MALL - ONGOING WORKS STATUS -->
+            <div class="slide slide-gray" id="slide-5">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 05 // SITE PROGRESS STATUS
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">LINEA MALL // WORKS REPORT</span>
+                            <h1 class="header-section-title-gray">أولاً: موقف المشروع من الأعمال القائمة</h1>
+                        </div>
+                    </div>
+
+                    <!-- 8 STAGGERED ARCHITECTURAL PROGRESS STATUS CARDS -->
+                    <div class="progress-grid-2col">
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">01</div>
+                            <p>تم تصنيع وتركيب وتثبيت المدخل الرئيسي لمبني (D) من الألمونيوم وتجهيز الوجهه علي تركيب الزجاج باجمالي عدد امتار المدخل 170.8م</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">02</div>
+                            <p>وتم تصنيع وتركيب وتثبيت وجهة المحلات في نفس المبني وتجهيزه علي تركيب الزجاج باجمالي عدد أمتار المحلات 272.9م</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">03</div>
+                            <p>وتم تركيب وتثبيت زجاج وعلب 2*4 للوجهه الخلفيه في نفس المبني بعدد 84 فاتحه واجمالي ما تم انجازه من الامتار والحصر الالمونيوم 798.1م</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">04</div>
+                            <p>تم تركيب ما تبقي من زجاج الوجهه الخلفيه وجاري العمل علي حصر الزجاج</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">05</div>
+                            <p>كما تم تصنيع المونيوم المحلات في مبني (C) وجاري العمل علي تصنيع الوجهه الأماميه في نفس المبني</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">06</div>
+                            <p>وتم تعديل الشاسيه الحديد للكاب الأسفل وتم تصنيع وتركيب الشاسيه الحديد في المدخل الرئيسي في مبني (D) وتم تصنيع الشاسيه الحديد للكاب العلوي والسفلي في مبني (C)</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">07</div>
+                            <p>متبقي سحب السيلكون علي الوجهه وتم التنسيق مع المقاول وفي انتظار تصنيع البراكت للوفر المتفق عليه لتركيب اللوفر وعددهم 360 براكت</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">08</div>
+                            <p>وفي انتظار تصنيع شبابيك التوب هانج للوجهه الأماميه والخلفيه وعددهم 136 شباك وفي أنتظار تصنيع وتركيب ما تبقي من الكلادينج في الكاب الأسفل والمدخل الرئيسي.</p>
+                        </div>
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>LINEA MALL REPORT // M05</span>
+                        <span style="color: var(--primary);">8 SITE PROGRESS STATUS AXES</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: LINEA MALL - PROCUREMENT & INVOICING STATUS -->
+            <div class="slide slide-gray" id="slide-6">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 06 // PROCUREMENT &amp; INVOICING
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">LINEA MALL // STATUS REPORT</span>
+                            <h1 class="header-section-title-gray">ثانياً: التوريدات &amp; ثالثاً: المستخلصات</h1>
+                        </div>
+                    </div>
+
+                    <!-- 2 SECTIONS: PROCUREMENT & INVOICING -->
+                    <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px; margin-top: 5mm; direction: rtl;">
+                        
+                        <!-- SECTION 2: PROCUREMENT -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثانياً: موقف المشروع من ناحية التوريدات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">PROCUREMENT</span>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">01</div>
+                                <p>تم توريد بضاعة مبنى سي</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">02</div>
+                                <p>تم توريد سليكون – فوم – تيب – مسماير – هولدرات لمبنى دي</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">03</div>
+                                <p>تم عمل اوردر الزجاج لمحلات مبنى دي و تصنيع الفيكات و ارسال الزجاج ل برو جلس</p>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: INVOICING -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثالثاً: موقف المستخلصات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">INVOICING</span>
+                            </div>
+
+                            <div class="invoice-highlight-card" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-right: 6px solid var(--primary); border-radius: 12px; padding: 26px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.05); text-align: center; margin-top: 2px;">
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 900; color: var(--primary); background: rgba(255,85,0,0.08); border: 1.5px solid rgba(255,85,0,0.25); padding: 14px 22px; border-radius: 10px; display: inline-block; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255,85,0,0.15);">4 - 7 - 2026</div>
+                                <h3 style="font-family: 'Cairo', sans-serif; font-size: 18px; font-weight: 800; color: #0f1016; margin-bottom: 8px;">اخر مستخلص بتاريخ 4-7-2026</h3>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #777788; letter-spacing: 2px; display: block; font-weight: 700;">LATEST PAYMENT CERTIFICATE DATE</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>LINEA MALL REPORT // M06</span>
+                        <span style="color: var(--primary);">PROCUREMENT &amp; PAYMENT STATUS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: BADR MALL DOWNTOWN HERO (COVER LAYOUT FORMAT WITH BADR MALL.JPG) -->
+            <div class="slide slide-cover" id="slide-7">
+                <div class="animated-bg-dark">
+                    <div class="hero-image-container">
+                        <img src="assets/Badr Mall.jpg" alt="Badr Mall Downtown Architecture">
+                        <div class="image-fade-overlay"></div>
+                    </div>
+                    <div class="moving-grid-dark"></div>
+                    <div class="animated-compass-ring"></div>
+                </div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <!-- Foreground Content Layer -->
+                <div class="cover-content">
+                    <div class="top-row">
+                        <div class="cad-coord-header-dark">
+                            <div class="pulse-light"></div>
+                            PROJECT 02 // BADR DOWNTOWN
+                        </div>
+                        <div class="doc-spec" style="flex-direction: row; align-items: center; gap: 10px;">
+                            <span>SPEC</span>
+                            <span class="spec-code">BDR-2026</span>
+                        </div>
+                    </div>
+
+                    <div class="center-piece">
+                        <div class="eyebrow-container">
+                            <span class="eyebrow-tag">COMMERCIAL LANDMARK</span>
+                            <span class="eyebrow-sub"></span>
+                        </div>
+                        <h1 class="mega-title">Badr</h1>
+                        <h1 class="mega-title outline-text">Downtown.</h1>
+                    </div>
+
+                    <div class="bottom-row">
+                        <div class="doc-spec">
+                            <span>DOCUMENT</span>
+                            <span class="spec-code">MALLS-P07</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: BADR MALL DOWNTOWN - ONGOING WORKS STATUS -->
+            <div class="slide slide-gray" id="slide-8">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 08 // SITE PROGRESS STATUS
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">BADR DOWNTOWN // WORKS REPORT</span>
+                            <h1 class="header-section-title-gray">أولاً: موقف المشروع من الأعمال القائمة</h1>
+                        </div>
+                    </div>
+
+                    <!-- 3 STAGGERED ARCHITECTURAL PROGRESS STATUS CARDS -->
+                    <div class="elements-container-gray">
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">01</div>
+                            <div>
+                                <h3>فك عمود كلادينج اللاند سكيب مع فك وجهة زجاج</h3>
+                                <span class="sub-title">LANDSCAPE CLADDING COLUMN &amp; GLASS FACADE DISMANTLING</span>
+                            </div>
+                        </div>
+
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">02</div>
+                            <div>
+                                <h3>تم توريد الألمونيوم في وجهة سعد زغلول وتركيب وتثبيت الوجهه الجانبيه فقط</h3>
+                                <span class="sub-title">SAAD ZAGHLOUL FACADE ALUMINUM SUPPLY &amp; SIDE INSTALLATION</span>
+                            </div>
+                        </div>
+
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">03</div>
+                            <div>
+                                <h3>وتم تعديل الشوب درونج وخفض عدد الأمتار المنفزذه بعد التصنيع والتوريد</h3>
+                                <span class="sub-title">SHOP DRAWINGS MODIFICATION &amp; EXECUTED METERS REVISION</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>BADR MALL DOWNTOWN REPORT // M08</span>
+                        <span style="color: var(--primary);">3 SITE PROGRESS AXES</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: BADR DOWNTOWN MALL - PROCUREMENT & INVOICING STATUS -->
+            <div class="slide slide-gray" id="slide-9">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 09 // PROCUREMENT &amp; INVOICING
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">BADR DOWNTOWN // STATUS REPORT</span>
+                            <h1 class="header-section-title-gray">ثانياً: التوريدات &amp; ثالثاً: المستخلصات</h1>
+                        </div>
+                    </div>
+
+                    <!-- 2 SECTIONS: PROCUREMENT & INVOICING -->
+                    <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px; margin-top: 5mm; direction: rtl;">
+                        
+                        <!-- SECTION 2: PROCUREMENT -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثانياً: موقف التوريدات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">PROCUREMENT</span>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">01</div>
+                                <p>تم توريد بضاعة المرحلة الثانية مول بدر</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">02</div>
+                                <p>تم توريد بضاعة الكيرتن للمرحلة التانية</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">03</div>
+                                <p>تم توريد جميع الاكسسورات للمرحلة التانية كيرتن</p>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: INVOICING -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثالثاً: موقف المستخلصات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">INVOICING</span>
+                            </div>
+
+                            <div class="invoice-highlight-card" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-right: 6px solid var(--primary); border-radius: 12px; padding: 26px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.05); text-align: center; margin-top: 2px;">
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 900; color: var(--primary); background: rgba(255,85,0,0.08); border: 1.5px solid rgba(255,85,0,0.25); padding: 14px 22px; border-radius: 10px; display: inline-block; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255,85,0,0.15);">13 - 7 - 2026</div>
+                                <h3 style="font-family: 'Cairo', sans-serif; font-size: 18px; font-weight: 800; color: #0f1016; margin-bottom: 8px;">اخر مستخلص بتاريخ 13-7-2026</h3>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #777788; letter-spacing: 2px; display: block; font-weight: 700;">LATEST PAYMENT CERTIFICATE DATE</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>BADR DOWNTOWN REPORT // M09</span>
+                        <span style="color: var(--primary);">PROCUREMENT &amp; PAYMENT STATUS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: D-LINE MALL HERO (COVER LAYOUT FORMAT WITH D-LINE.JPG) -->
+            <div class="slide slide-cover" id="slide-10">
+                <div class="animated-bg-dark">
+                    <div class="hero-image-container">
+                        <img src="assets/D-line.jpg" alt="D-Line Mall Architecture">
+                        <div class="image-fade-overlay"></div>
+                    </div>
+                    <div class="moving-grid-dark"></div>
+                    <div class="animated-compass-ring"></div>
+                </div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <!-- Foreground Content Layer -->
+                <div class="cover-content">
+                    <div class="top-row">
+                        <div class="cad-coord-header-dark">
+                            <div class="pulse-light"></div>
+                            PROJECT 03 // D-LINE MALL
+                        </div>
+                        <div class="doc-spec" style="flex-direction: row; align-items: center; gap: 10px;">
+                            <span>SPEC</span>
+                            <span class="spec-code">DLN-2026</span>
+                        </div>
+                    </div>
+
+                    <div class="center-piece">
+                        <div class="eyebrow-container">
+                            <span class="eyebrow-tag">COMMERCIAL LANDMARK</span>
+                            <span class="eyebrow-sub"></span>
+                        </div>
+                        <h1 class="mega-title">D-Line</h1>
+                        <h1 class="mega-title outline-text">Mall.</h1>
+                    </div>
+
+                    <div class="bottom-row">
+                        <div class="doc-spec">
+                            <span>DOCUMENT</span>
+                            <span class="spec-code">MALLS-P10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 11: D-LINE MALL - ONGOING WORKS STATUS -->
+            <div class="slide slide-gray" id="slide-11">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 11 // SITE PROGRESS STATUS
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">D-LINE MALL // WORKS REPORT</span>
+                            <h1 class="header-section-title-gray">أولاً: موقف المشروع من الأعمال القائمة</h1>
+                        </div>
+                    </div>
+
+                    <!-- 6 STAGGERED ARCHITECTURAL PROGRESS STATUS CARDS IN 2-COLUMNS -->
+                    <div class="progress-grid-2col">
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">01</div>
+                            <p>تم الأنتهاء من اعمال الكيرتن في مبني 3 وتم التسليم</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">02</div>
+                            <p>كما تم اعتماد لون علب اللوفر وبراكيت تركيب اللوفر للأنتهاء من أعمال السيلكون في الوجهه الأماميه في مبني 4 وتوريد علب اللوفر عن جاهزيتها في المخزن</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">03</div>
+                            <p>بالأضافه الي ان تم الأنتهاء من أعمال الكلادينج في مبني 4 وتم توريد الحلوق وتركيبها وفي انتظار توريد الضلف</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">04</div>
+                            <p>تم الأنتهاء من أعمال الأبواب الجرار في الوجهه الخلفيه مبني 6/7/8 وتم تسليمهم للمشروع</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">05</div>
+                            <p>تم الأنتهاء من أعمال الزجاج في الوجهه الخلفيه لمبني 6/7 وتسليمهم</p>
+                        </div>
+
+                        <div class="progress-card-gray">
+                            <div class="progress-num-badge">06</div>
+                            <p>و تم الأتفاق مع إدارة المشروع علي البدء في بناء سقالات علي سلم مبني3/4</p>
+                        </div>
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>D-LINE MALL REPORT // M11</span>
+                        <span style="color: var(--primary);">6 SITE PROGRESS STATUS AXES</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 12: D-LINE MALL - PROCUREMENT & INVOICING STATUS -->
+            <div class="slide slide-gray" id="slide-12">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 12 // PROCUREMENT &amp; INVOICING
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">D-LINE MALL // STATUS REPORT</span>
+                            <h1 class="header-section-title-gray">ثانياً: التوريدات &amp; ثالثاً: المستخلصات</h1>
+                        </div>
+                    </div>
+
+                    <!-- 2 SECTIONS: PROCUREMENT & INVOICING -->
+                    <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px; margin-top: 5mm; direction: rtl;">
+                        
+                        <!-- SECTION 2: PROCUREMENT -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثانياً: موقف التوريدات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">PROCUREMENT</span>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">01</div>
+                                <p>تم عمل اوردر الزجاج مبنى 3</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">02</div>
+                                <p>تم تصنيع الفكات و ارسال الزجاج ل برو جلس</p>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: INVOICING -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثالثاً: موقف المستخلصات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">INVOICING</span>
+                            </div>
+
+                            <div class="invoice-highlight-card" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-right: 6px solid var(--primary); border-radius: 12px; padding: 26px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.05); text-align: center; margin-top: 2px;">
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 900; color: var(--primary); background: rgba(255,85,0,0.08); border: 1.5px solid rgba(255,85,0,0.25); padding: 14px 22px; border-radius: 10px; display: inline-block; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255,85,0,0.15);">13 - 7 - 2026</div>
+                                <h3 style="font-family: 'Cairo', sans-serif; font-size: 18px; font-weight: 800; color: #0f1016; margin-bottom: 8px;">اخر مستخلص بتاريخ 13-7-2026</h3>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #777788; letter-spacing: 2px; display: block; font-weight: 700;">LATEST PAYMENT CERTIFICATE DATE</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>D-LINE MALL REPORT // M12</span>
+                        <span style="color: var(--primary);">PROCUREMENT &amp; PAYMENT STATUS</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 13: CASA MALL HERO (COVER LAYOUT FORMAT WITH CASA.JPG) -->
+            <div class="slide slide-cover" id="slide-13">
+                <div class="animated-bg-dark">
+                    <div class="hero-image-container">
+                        <img src="assets/Casa.jpg" alt="Mall Casa Shorouk Architecture">
+                        <div class="image-fade-overlay"></div>
+                    </div>
+                    <div class="moving-grid-dark"></div>
+                    <div class="animated-compass-ring"></div>
+                </div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <!-- Foreground Content Layer -->
+                <div class="cover-content">
+                    <div class="top-row">
+                        <div class="cad-coord-header-dark">
+                            <div class="pulse-light"></div>
+                            PROJECT 04 // CASA MALL SHOROUK
+                        </div>
+                        <div class="doc-spec" style="flex-direction: row; align-items: center; gap: 10px;">
+                            <span>SPEC</span>
+                            <span class="spec-code">CSA-2026</span>
+                        </div>
+                    </div>
+
+                    <div class="center-piece">
+                        <div class="eyebrow-container">
+                            <span class="eyebrow-tag">COMMERCIAL LANDMARK</span>
+                            <span class="eyebrow-sub"></span>
+                        </div>
+                        <h1 class="mega-title">Casa</h1>
+                        <h1 class="mega-title outline-text">Mall.</h1>
+                    </div>
+
+                    <div class="bottom-row">
+                        <div class="doc-spec">
+                            <span>DOCUMENT</span>
+                            <span class="spec-code">MALLS-P13</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 14: CASA MALL - ONGOING WORKS STATUS -->
+            <div class="slide slide-gray" id="slide-14">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 14 // SITE PROGRESS STATUS
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">CASA MALL // WORKS REPORT</span>
+                            <h1 class="header-section-title-gray">أولاً: موقف المشروع من الأعمال القائمة</h1>
+                        </div>
+                    </div>
+
+                    <!-- 2 STAGGERED ARCHITECTURAL PROGRESS STATUS CARDS -->
+                    <div class="elements-container-gray">
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">01</div>
+                            <div>
+                                <h3>تم الأنتهاء من أعمال السيلكون في مبني 3/5 وتم تركيب اللوفر وباقي جزء من الزجاج لم يتم توريده لوجود مشكله ف تصنيع الفكات وجاري العمل علي تعديلهم وإرسالهم مره أخري للتكمله من خلال المورد وباقي ارسال الضلف لبروجلاس لتصنيع الزجاج عند تصنيعها من قبل المصنع</h3>
+                                <span class="sub-title">BUILDINGS 3/5 SILICONE &amp; LOUVERS COMPLETED, GLASS FIXTURES UNDER REVISION</span>
+                            </div>
+                        </div>
+
+                        <div class="arch-card-horizontal-gray">
+                            <div class="arch-badge-horizontal-gray">02</div>
+                            <div>
+                                <h3>بالأضافه الي جاري العمل في مبني 2 ف الطرقات الداخليه وسيتم الانتهاء من تركيب العلفه الحديد ولاكن لا يوجد كلادينج اسود لأنتهاء من باقي الأعمال</h3>
+                                <span class="sub-title">BUILDING 2 INTERNAL CORRIDORS STEEL FRAME INSTALLATION &amp; CLADDING STATUS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>CASA MALL SHOROUK REPORT // M14</span>
+                        <span style="color: var(--primary);">2 SITE PROGRESS AXES</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 15: CASA MALL - PROCUREMENT & INVOICING STATUS -->
+            <div class="slide slide-gray" id="slide-15">
+                <div class="moving-grid-gray"></div>
+                <div class="animated-compass-ring-gray"></div>
+                <div class="animated-compass-ring-gray-2"></div>
+                <div class="floating-accent-glow-gray"></div>
+
+                <div class="cad-crosshair tl"></div>
+                <div class="cad-crosshair tr"></div>
+                <div class="cad-crosshair bl"></div>
+                <div class="cad-crosshair br"></div>
+
+                <div class="layout-slide-inner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div class="cad-coord-header-gray">
+                            <div class="pulse-light"></div>
+                            SECTION 15 // PROCUREMENT &amp; INVOICING
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="eyebrow-tag" style="font-size: 10px; padding-left: 10px; margin-bottom: 4px;">CASA MALL // STATUS REPORT</span>
+                            <h1 class="header-section-title-gray">ثانياً: التوريدات &amp; ثالثاً: المستخلصات</h1>
+                        </div>
+                    </div>
+
+                    <!-- 2 SECTIONS: PROCUREMENT & INVOICING -->
+                    <div style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px; margin-top: 5mm; direction: rtl;">
+                        
+                        <!-- SECTION 2: PROCUREMENT -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثانياً: موقف التوريدات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">PROCUREMENT</span>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">01</div>
+                                <p>تم توريد حلوق الكيرتن مبتى 3</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">02</div>
+                                <p>عمل اوردر حلوق مبنى 5</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">03</div>
+                                <p>تم عمل اوردر ل دلف مبنى 3</p>
+                            </div>
+
+                            <div class="progress-card-gray">
+                                <div class="progress-num-badge">04</div>
+                                <p>تم عمل اوردر زجاج مبنى 2 -3 -4 -5 و ارسال الزجاج ل برو جلس</p>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: INVOICING -->
+                        <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="font-family: 'Cairo', sans-serif; font-size: 16.5px; font-weight: 800; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>ثالثاً: موقف المستخلصات</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #777788;">INVOICING</span>
+                            </div>
+
+                            <div class="invoice-highlight-card" style="background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-right: 6px solid var(--primary); border-radius: 12px; padding: 26px 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.05); text-align: center; margin-top: 2px;">
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 900; color: var(--primary); background: rgba(255,85,0,0.08); border: 1.5px solid rgba(255,85,0,0.25); padding: 14px 22px; border-radius: 10px; display: inline-block; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255,85,0,0.15);">15 - 7 - 2026</div>
+                                <h3 style="font-family: 'Cairo', sans-serif; font-size: 18px; font-weight: 800; color: #0f1016; margin-bottom: 8px;">اخر مستخلص بتاريخ 15-7-2026</h3>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #777788; letter-spacing: 2px; display: block; font-weight: 700;">LATEST PAYMENT CERTIFICATE DATE</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-text-gray">
+                        <span>CASA MALL SHOROUK REPORT // M15</span>
+                        <span style="color: var(--primary);">PROCUREMENT &amp; PAYMENT STATUS</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PREVIOUS / NEXT ARROWS ONLY -->
+    <button class="nav-arrow prev" id="prevBtn" title="Previous Slide (Left Arrow)">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="nav-arrow next" id="nextBtn" title="Next Slide (Right Arrow)">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+    <!-- FLOATING CONTROL BAR WITH COUNTER -->
+    <div class="presentation-bar">
+        <button class="mini-btn" id="barPrev" title="Previous">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="slide-counter">
+            <span class="current" id="currentSlideNum">01</span>
+            <span style="opacity:0.4;">/</span>
+            <span id="totalSlidesNum">15</span>
+        </div>
+        <button class="mini-btn" id="barNext" title="Next">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="bar-divider"></div>
+        <button class="mini-btn" id="printBtn" title="Print Presentation / Save as PDF (Ctrl+P)">
+            <svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2.2;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        </button>
+        <button class="mini-btn" id="fullscreenBtn" title="Toggle Fullscreen">
+            <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+        </button>
+    </div>
+
+    <div class="kbd-hint">USE ARROWS ◄ ► TO NAVIGATE | CTRL+P TO PRINT</div>
+
+    <script>
+        (function() {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentSlide = 0;
+
+            const currentSlideNum = document.getElementById('currentSlideNum');
+            const totalSlidesNum = document.getElementById('totalSlidesNum');
+            const slideScaler = document.getElementById('slideScaler');
+
+            totalSlidesNum.textContent = totalSlides < 10 ? '0' + totalSlides : totalSlides;
+
+            function updateSlide(index) {
+                if (index < 0) index = 0;
+                if (index >= totalSlides) index = totalSlides - 1;
+
+                slides.forEach((slide, idx) => {
+                    if (idx === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+
+                currentSlide = index;
+                const numStr = (currentSlide + 1) < 10 ? '0' + (currentSlide + 1) : (currentSlide + 1);
+                currentSlideNum.textContent = numStr;
+            }
+
+            function nextSlide() {
+                if (currentSlide < totalSlides - 1) {
+                    updateSlide(currentSlide + 1);
+                } else {
+                    updateSlide(0);
+                }
+            }
+
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    updateSlide(currentSlide - 1);
+                } else {
+                    updateSlide(totalSlides - 1);
+                }
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', nextSlide);
+            document.getElementById('prevBtn').addEventListener('click', prevSlide);
+            document.getElementById('barNext').addEventListener('click', nextSlide);
+            document.getElementById('barPrev').addEventListener('click', prevSlide);
+
+            document.getElementById('printBtn').addEventListener('click', function() {
+                window.print();
+            });
+
+            window.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    prevSlide();
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    updateSlide(0);
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    updateSlide(totalSlides - 1);
+                }
+            });
+
+            function scalePresentation() {
+                const targetWidth = 907;
+                const targetHeight = 680;
+                
+                const winWidth = window.innerWidth;
+                const winHeight = window.innerHeight;
+
+                const scaleX = (winWidth * 0.90) / targetWidth;
+                const scaleY = (winHeight * 0.88) / targetHeight;
+
+                const scale = Math.min(scaleX, scaleY);
+                slideScaler.style.transform = `scale(${scale})`;
+            }
+
+            window.addEventListener('resize', scalePresentation);
+            scalePresentation();
+
+            document.getElementById('fullscreenBtn').addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {});
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            });
+
+            let touchStartX = 0;
+            window.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, false);
+            window.addEventListener('touchend', e => {
+                let touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) nextSlide();
+                if (touchEndX > touchStartX + 50) prevSlide();
+            }, false);
+
+        })();
+    </script>
+</body>
+</html>
