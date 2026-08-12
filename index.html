@@ -934,6 +934,41 @@
         }
 
         /* =========================================================
+           RESPONSIVE MOBILE & TABLET OPTIMIZATIONS
+           ========================================================= */
+        @media (max-width: 900px) {
+            .nav-arrow {
+                display: none !important;
+            }
+
+            .presentation-bar {
+                bottom: 12px;
+                padding: 6px 14px;
+                gap: 10px;
+                border-radius: 30px;
+                background: rgba(10, 10, 14, 0.92);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            }
+
+            .slide-counter {
+                font-size: 10px;
+                letter-spacing: 1.5px;
+            }
+
+            .slide-counter span.current {
+                font-size: 11px;
+            }
+
+            .kbd-hint {
+                display: none !important;
+            }
+
+            .presentation-stage {
+                padding: 10px 0;
+            }
+        }
+
+        /* =========================================================
            PRINT MEDIA QUERY (EXACT A4 LANDSCAPE 297mm x 210mm FULL-BLEED)
            ========================================================= */
         @media print {
@@ -2269,14 +2304,21 @@
                 const winWidth = window.innerWidth;
                 const winHeight = window.innerHeight;
 
-                const scaleX = (winWidth * 0.90) / targetWidth;
-                const scaleY = (winHeight * 0.88) / targetHeight;
+                const isMobile = winWidth < 768;
+                let padX = isMobile ? 0.98 : 0.92;
+                let padY = isMobile ? 0.94 : 0.88;
+
+                const scaleX = (winWidth * padX) / targetWidth;
+                const scaleY = (winHeight * padY) / targetHeight;
 
                 const scale = Math.min(scaleX, scaleY);
                 slideScaler.style.transform = `scale(${scale})`;
             }
 
             window.addEventListener('resize', scalePresentation);
+            window.addEventListener('orientationchange', function() {
+                setTimeout(scalePresentation, 200);
+            });
             scalePresentation();
 
             document.getElementById('fullscreenBtn').addEventListener('click', function() {
