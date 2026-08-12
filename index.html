@@ -933,6 +933,21 @@
             pointer-events: none;
         }
 
+        .procurement-invoicing-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 1.15fr;
+            gap: 20px;
+            margin-top: 5mm;
+            direction: rtl;
+        }
+
+        .closing-exec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            direction: rtl;
+        }
+
         /* =========================================================
            RESPONSIVE MOBILE & TABLET OPTIMIZATIONS
            ========================================================= */
@@ -962,9 +977,208 @@
             .kbd-hint {
                 display: none !important;
             }
+        }
+
+        /* =========================================================
+           FLUID MOBILE PORTRAIT EXPERIENCE (PHONES HELD VERTICALLY)
+           ========================================================= */
+        @media screen and (max-width: 768px) and (orientation: portrait) {
+            html, body {
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                height: auto !important;
+                background: #060609 !important;
+            }
 
             .presentation-stage {
-                padding: 10px 0;
+                width: 100vw !important;
+                height: auto !important;
+                min-height: 100vh !important;
+                padding: 10px 8px 85px 8px !important;
+                align-items: flex-start !important;
+                justify-content: center !important;
+                background: #060609 !important;
+            }
+
+            .slide-scaler {
+                width: 100% !important;
+                max-width: 480px !important;
+                height: auto !important;
+                min-height: 78vh !important;
+                transform: none !important;
+                box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7) !important;
+                border-radius: 16px !important;
+                overflow: hidden !important;
+                margin: 0 auto !important;
+            }
+
+            .slide {
+                position: relative !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: 78vh !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                display: none !important;
+                transform: none !important;
+            }
+
+            .slide.active {
+                opacity: 1 !important;
+                visibility: visible !important;
+                display: flex !important;
+                flex-direction: column !important;
+                transform: none !important;
+            }
+
+            .layout-slide-inner {
+                padding: 16px 14px !important;
+                height: auto !important;
+                min-height: 78vh !important;
+                justify-content: space-between !important;
+                gap: 14px !important;
+            }
+
+            /* Header titles mobile portrait */
+            .header-section-title-gray {
+                font-size: 18px !important;
+                line-height: 1.3 !important;
+            }
+
+            .cad-coord-header-gray, .cad-coord-header-dark {
+                font-size: 8px !important;
+                padding: 5px 10px !important;
+                letter-spacing: 1.5px !important;
+            }
+
+            /* Cover Slides Mobile Portrait */
+            .slide-cover .cover-content {
+                position: relative !important;
+                padding: 18px 14px !important;
+                height: auto !important;
+                min-height: 78vh !important;
+            }
+
+            .mega-title {
+                font-size: 34px !important;
+                line-height: 1.05 !important;
+                letter-spacing: -1px !important;
+            }
+
+            .eyebrow-tag {
+                font-size: 9px !important;
+                letter-spacing: 3px !important;
+            }
+
+            .cover-logo-brand {
+                height: 70px !important;
+            }
+
+            .center-piece {
+                margin-top: 5mm !important;
+            }
+
+            /* Content Grid Spacing Mobile Portrait */
+            .projects-grid-gray {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 10px !important;
+                margin-top: 3mm !important;
+            }
+
+            .progress-grid-2col {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+                margin-top: 3mm !important;
+            }
+
+            .procurement-invoicing-grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+                margin-top: 3mm !important;
+            }
+
+            .closing-exec-grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+            }
+
+            .elements-container-gray {
+                gap: 10px !important;
+                margin-top: 3mm !important;
+            }
+
+            /* Cards Padding & Typography Mobile Portrait */
+            .arch-card-horizontal-gray {
+                padding: 12px 14px !important;
+                gap: 12px !important;
+                border-radius: 12px !important;
+            }
+
+            .arch-badge-horizontal-gray {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 13px !important;
+                border-radius: 8px !important;
+            }
+
+            .arch-card-horizontal-gray h3 {
+                font-size: 13px !important;
+                line-height: 1.45 !important;
+                margin-bottom: 2px !important;
+            }
+
+            .arch-card-horizontal-gray span.sub-title {
+                font-size: 8.5px !important;
+                letter-spacing: 1px !important;
+                line-height: 1.3 !important;
+            }
+
+            .arch-card-gray-v3 {
+                padding: 14px 10px !important;
+                border-radius: 12px !important;
+            }
+
+            .arch-card-gray-v3 h3 {
+                font-size: 13.5px !important;
+                line-height: 1.35 !important;
+            }
+
+            .progress-card-gray {
+                padding: 10px 12px !important;
+                gap: 10px !important;
+                border-radius: 10px !important;
+            }
+
+            .progress-card-gray p {
+                font-size: 12.5px !important;
+                line-height: 1.5 !important;
+            }
+
+            .progress-num-badge {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 12px !important;
+                border-radius: 6px !important;
+            }
+
+            .exec-profile-card {
+                padding: 16px 18px !important;
+                gap: 10px !important;
+                border-radius: 14px !important;
+            }
+
+            .exec-card-body h3 {
+                font-size: 18px !important;
+                margin-bottom: 4px !important;
+            }
+
+            .exec-role-pill {
+                font-size: 12.5px !important;
+                padding: 4px 12px !important;
+            }
+
+            .slide-gray div[style*="height: 156mm"] {
+                height: 48vh !important;
             }
         }
 
@@ -1386,7 +1600,7 @@
                     </div>
 
                     <!-- 2 SECTIONS: PROCUREMENT & INVOICING -->
-                    <div style="display: grid; grid-template-columns: 1.25fr 1.15fr; gap: 20px; margin-top: 5mm; direction: rtl;">
+                    <div class="procurement-invoicing-grid">
                         
                         <!-- SECTION 2: PROCUREMENT -->
                         <div class="section-column" style="display: flex; flex-direction: column; gap: 12px;">
@@ -2134,7 +2348,7 @@
                             <h2 style="font-family: 'Cairo', sans-serif; font-size: 28px; font-weight: 900; color: #0f1016; margin-top: 4px;">فـريق الإعـداد والـتنفـيذ</h2>
                         </div>
 
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; direction: rtl;">
+                        <div class="closing-exec-grid">
                             
                             <!-- CARD 1: BELAL ABU RABAH (NO.1 FIRST) -->
                             <div class="exec-profile-card">
@@ -2298,11 +2512,18 @@
             });
 
             function scalePresentation() {
-                const targetWidth = 1122; // 297mm @ 96dpi
-                const targetHeight = 794; // 210mm @ 96dpi
-                
                 const winWidth = window.innerWidth;
                 const winHeight = window.innerHeight;
+
+                const isMobilePortrait = (winWidth <= 768) && (winHeight > winWidth);
+
+                if (isMobilePortrait) {
+                    slideScaler.style.transform = 'none';
+                    return;
+                }
+
+                const targetWidth = 1122; // 297mm @ 96dpi
+                const targetHeight = 794; // 210mm @ 96dpi
 
                 const isMobile = winWidth < 768;
                 let padX = isMobile ? 0.98 : 0.92;
